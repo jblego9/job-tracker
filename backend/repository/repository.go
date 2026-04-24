@@ -1,9 +1,10 @@
 package repository
 
 import (
-	backend "backend"
 	"database/sql"
 	"os"
+
+	"backend"
 )
 
 var db *sql.DB
@@ -21,7 +22,12 @@ func Init() error {
 }
 
 func dbPath() string {
-	return os.Getenv("DB_PATH")
+	dbPath := os.Getenv("DB_PATH")
+	if dbPath == "" {
+		dbPath = "./data/dev.db"
+	}
+
+	return dbPath
 }
 
 func open() error {

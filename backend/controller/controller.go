@@ -1,10 +1,11 @@
 package controller
 
 import (
-	"backend/service"
 	"encoding/json"
 	"io"
 	"net/http"
+
+	"backend/service"
 )
 
 func writeInternalErrorResponse(w http.ResponseWriter, err error) {

@@ -1,7 +1,7 @@
 package service
 
 import (
-	backend "backend"
+	"backend"
 	"backend/repository"
 )
 
