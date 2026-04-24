@@ -1,0 +1,75 @@
+package repository
+
+import (
+	backend "backend"
+	"database/sql"
+	"os"
+)
+
+var db *sql.DB
+
+func Init() error {
+	if err := open(); err != nil {
+		return err
+	}
+
+	if err := setup(); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func dbPath() string {
+	return os.Getenv("DB_PATH")
+}
+
+func open() error {
+	new_db, err := sql.Open("sqlite", dbPath())
+	if err != nil {
+		db.Close()
+		return err
+	}
+
+	db = new_db
+	return err
+}
+
+func setup() error {
+	stmt := `
+		CREATE TABLE IF NOT EXISTS applications (
+			id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+			text TEXT
+		);
+	`
+
+	_, err := db.Exec(stmt)
+	return err
+}
+
+func GetApplications() ([]backend.Application, error) {
+	query := `
+		SELECT * FROM applications;
+	`
+
+	rows, err := db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	apps := make([]backend.Application, 0)
+	for rows.Next() {
+		var app backend.Application
+		if err := rows.Scan(&app); err != nil {
+			return nil, err
+		}
+		apps = append(apps, app)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return apps, nil
+}

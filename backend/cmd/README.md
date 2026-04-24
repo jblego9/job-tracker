@@ -1,0 +1,1 @@
+Use a .env to specify what port the server is on, and the path to the sqlite database file.
