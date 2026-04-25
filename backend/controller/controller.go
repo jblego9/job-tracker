@@ -30,5 +30,20 @@ func AddApplication(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.WriteHeader(http.StatusCreated)
+}
+
+func DeleteApplication(w http.ResponseWriter, r *http.Request) {
+	var id uint
+	if err := json.NewDecoder(r.Body).Decode(&id); err != nil {
+		writeBadRequestResponse(w, err)
+		return
+	}
+
+	if err := service.DeleteApplication(id); err != nil {
+		writeInternalServerErrorResponse(w, err)
+		return
+	}
+
 	w.WriteHeader(http.StatusOK)
 }

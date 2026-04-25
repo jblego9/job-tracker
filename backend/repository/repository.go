@@ -54,9 +54,7 @@ func setup() error {
 }
 
 func GetApplications() ([]backend.Application, error) {
-	query := `
-		SELECT id, text FROM applications;
-	`
+	query := `SELECT id, text FROM applications;`
 
 	rows, err := db.Query(query)
 	if err != nil {
@@ -81,8 +79,15 @@ func GetApplications() ([]backend.Application, error) {
 }
 
 func InsertApplication(app backend.Application) error {
-	query := `INSERT INTO applications (text) VALUES (?)`
+	query := `INSERT INTO applications (text) VALUES (?);`
 
 	_, err := db.Exec(query, app.Text)
+	return err
+}
+
+func DeleteApplication(id uint) error {
+	query := `DELETE FROM applications WHERE id = (?);`
+
+	_, err := db.Exec(query, id)
 	return err
 }
