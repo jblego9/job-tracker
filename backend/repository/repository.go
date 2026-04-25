@@ -29,7 +29,7 @@ func dbPath() string {
 }
 
 func open() error {
-	new_db, err := sql.Open("sqlite", dbPath())
+	new_db, err := sql.Open("sqlite", dbPath()+"?_journal=WAL&_timeout=5000&_fk=true")
 	if err != nil {
 		db.Close()
 		return err
