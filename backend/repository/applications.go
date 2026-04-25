@@ -31,7 +31,7 @@ func GetApplications() ([]backend.Application, error) {
 }
 
 func GetApplication(id int) (*backend.Application, error) {
-	query := `SELECT id, text FROM applications WHERE id = (?);`
+	query := `SELECT id, text FROM applications WHERE id = ?;`
 
 	row := db.QueryRow(query, id)
 
@@ -59,14 +59,14 @@ func InsertApplication(app backend.Application) error {
 }
 
 func UpdateApplication(app backend.Application) error {
-	query := `UPDATE applications SET text = (?) WHERE id = (?);`
+	query := `UPDATE applications SET text = ? WHERE id = ?;`
 
 	_, err := db.Exec(query, app.Text, app.Id)
 	return err
 }
 
 func DeleteApplication(id int) error {
-	query := `DELETE FROM applications WHERE id = (?);`
+	query := `DELETE FROM applications WHERE id = ?;`
 
 	_, err := db.Exec(query, id)
 	return err
