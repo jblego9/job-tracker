@@ -42,20 +42,20 @@ func open() error {
 }
 
 func setup() error {
-	stmt := `
+	query := `
 		CREATE TABLE IF NOT EXISTS applications (
 			id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 			text TEXT
 		);
 	`
 
-	_, err := db.Exec(stmt)
+	_, err := db.Exec(query)
 	return err
 }
 
 func GetApplications() ([]backend.Application, error) {
 	query := `
-		SELECT * FROM applications;
+		SELECT id, text FROM applications;
 	`
 
 	rows, err := db.Query(query)
@@ -67,7 +67,7 @@ func GetApplications() ([]backend.Application, error) {
 	apps := make([]backend.Application, 0)
 	for rows.Next() {
 		var app backend.Application
-		if err := rows.Scan(&app); err != nil {
+		if err := rows.Scan(&app.Id, &app.Text); err != nil {
 			return nil, err
 		}
 		apps = append(apps, app)
@@ -78,4 +78,11 @@ func GetApplications() ([]backend.Application, error) {
 	}
 
 	return apps, nil
+}
+
+func InsertApplication(app backend.Application) error {
+	query := `INSERT INTO applications (text) VALUES (?)`
+
+	_, err := db.Exec(query, app.Text)
+	return err
 }

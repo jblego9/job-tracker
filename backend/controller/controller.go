@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"backend"
 	"encoding/json"
 	"io"
 	"net/http"
@@ -8,23 +9,46 @@ import (
 	"backend/service"
 )
 
-func writeInternalErrorResponse(w http.ResponseWriter, err error) {
+func writeInternalServerErrorResponse(w http.ResponseWriter, err error) {
 	w.WriteHeader(http.StatusInternalServerError)
 	io.WriteString(w, err.Error())
 }
 
+func writeBadRequestResponse(w http.ResponseWriter, err error) {
+	w.WriteHeader(http.StatusBadRequest)
+	io.WriteString(w, err.Error())
+}
+
 func writeJsonResponse(w http.ResponseWriter, v any) {
-	w.WriteHeader(http.StatusOK)
+	if err := json.NewEncoder(w).Encode(v); err != nil {
+		writeInternalServerErrorResponse(w, err)
+		return
+	}
+
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(v)
 }
 
 func GetApplications(w http.ResponseWriter, _ *http.Request) {
 	apps, err := service.GetApplications()
 	if err != nil {
-		writeInternalErrorResponse(w, err)
+		writeInternalServerErrorResponse(w, err)
 		return
 	}
 
 	writeJsonResponse(w, apps)
+}
+
+func AddApplication(w http.ResponseWriter, r *http.Request) {
+	var app backend.Application
+	if err := json.NewDecoder(r.Body).Decode(&app); err != nil {
+		writeBadRequestResponse(w, err)
+		return
+	}
+
+	if err := service.AddApplication(app); err != nil {
+		writeInternalServerErrorResponse(w, err)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
 }

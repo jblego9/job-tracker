@@ -26,5 +26,6 @@ func port() string {
 }
 
 func setup() {
-	http.HandleFunc("/api/v1/applications", controller.GetApplications)
+	http.HandleFunc("GET /api/v1/applications", controller.GetApplications)
+	http.HandleFunc("POST /api/v1/applications", controller.AddApplication)
 }
