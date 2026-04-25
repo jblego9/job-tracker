@@ -6,9 +6,7 @@ import (
 )
 
 func GetApplications() ([]backend.Application, error) {
-	query := `SELECT id, text FROM applications;`
-
-	rows, err := db.Query(query)
+	rows, err := db.Query("SELECT id, text FROM applications;")
 	if err != nil {
 		return nil, err
 	}
@@ -31,9 +29,7 @@ func GetApplications() ([]backend.Application, error) {
 }
 
 func GetApplication(id int) (*backend.Application, error) {
-	query := `SELECT id, text FROM applications WHERE id = ?;`
-
-	row := db.QueryRow(query, id)
+	row := db.QueryRow("SELECT id, text FROM applications WHERE id = ?;", id)
 
 	var app backend.Application
 	if err := row.Scan(&app.Id, &app.Text); err != nil {
@@ -52,22 +48,16 @@ func GetApplication(id int) (*backend.Application, error) {
 }
 
 func InsertApplication(app backend.Application) error {
-	query := `INSERT INTO applications (text) VALUES (?);`
-
-	_, err := db.Exec(query, app.Text)
+	_, err := db.Exec("INSERT INTO applications (text) VALUES (?);", app.Text)
 	return err
 }
 
 func UpdateApplication(app backend.Application) error {
-	query := `UPDATE applications SET text = ? WHERE id = ?;`
-
-	_, err := db.Exec(query, app.Text, app.Id)
+	_, err := db.Exec("UPDATE applications SET text = ? WHERE id = ?;", app.Text, app.Id)
 	return err
 }
 
 func DeleteApplication(id int) error {
-	query := `DELETE FROM applications WHERE id = ?;`
-
-	_, err := db.Exec(query, id)
+	_, err := db.Exec("DELETE FROM applications WHERE id = ?;", id)
 	return err
 }
