@@ -1,6 +1,6 @@
 package backend
 
 type Application struct {
-	Id   uint
+	Id   int
 	Text string
 }

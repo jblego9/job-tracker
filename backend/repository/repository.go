@@ -85,7 +85,7 @@ func InsertApplication(app backend.Application) error {
 	return err
 }
 
-func DeleteApplication(id uint) error {
+func DeleteApplication(id int) error {
 	query := `DELETE FROM applications WHERE id = (?);`
 
 	_, err := db.Exec(query, id)

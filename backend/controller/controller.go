@@ -4,6 +4,7 @@ import (
 	"backend"
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	"backend/service"
 )
@@ -34,12 +35,13 @@ func AddApplication(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteApplication(w http.ResponseWriter, r *http.Request) {
-	var id uint
-	if err := json.NewDecoder(r.Body).Decode(&id); err != nil {
+	parsed_id, err := strconv.ParseInt(r.PathValue("id"), 0, 64)
+	if err != nil {
 		writeBadRequestResponse(w, err)
 		return
 	}
 
+	id := int(parsed_id)
 	if err := service.DeleteApplication(id); err != nil {
 		writeInternalServerErrorResponse(w, err)
 		return

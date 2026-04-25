@@ -1,5 +1,4 @@
 # TODO
-- Delete job application
 - Get job application by id
 - Edit job application
 - Prevent sql injections
