@@ -5,6 +5,15 @@ import (
 	"backend/repository"
 )
 
+func DoesApplicationExist(id int) (bool, error) {
+	app, err := GetApplication(id)
+	if err != nil || app == nil {
+		return false, err
+	}
+
+	return true, err
+}
+
 func GetApplications() ([]backend.Application, error) {
 	return repository.GetApplications()
 }

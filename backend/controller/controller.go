@@ -71,13 +71,13 @@ func UpdateApplication(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	current_app, err := service.GetApplication(updated_app.Id)
+	exists, err := service.DoesApplicationExist(updated_app.Id)
 	if err != nil {
 		writeInternalServerErrorResponse(w, err)
 		return
 	}
 
-	if current_app == nil {
+	if !exists {
 		w.WriteHeader(http.StatusNotFound)
 		return
 	}
@@ -97,13 +97,13 @@ func DeleteApplication(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	app, err := service.GetApplication(id)
+	exists, err := service.DoesApplicationExist(id)
 	if err != nil {
 		writeInternalServerErrorResponse(w, err)
 		return
 	}
 
-	if app == nil {
+	if !exists {
 		w.WriteHeader(http.StatusNotFound)
 		return
 	}
