@@ -71,6 +71,17 @@ func DeleteApplication(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	app, err := service.GetApplication(id)
+	if err != nil {
+		writeInternalServerErrorResponse(w, err)
+		return
+	}
+
+	if app == nil {
+		w.WriteHeader(http.StatusNotFound)
+		return
+	}
+
 	if err := service.DeleteApplication(id); err != nil {
 		writeInternalServerErrorResponse(w, err)
 		return
