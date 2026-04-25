@@ -115,3 +115,13 @@ func DeleteApplication(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 }
+
+func GetSummary(w http.ResponseWriter, _ *http.Request) {
+	summary, err := service.GetSummary()
+	if err != nil || summary == nil {
+		writeInternalServerErrorResponse(w, err)
+		return
+	}
+
+	writeJsonResponse(w, *summary)
+}

@@ -1,5 +1,4 @@
 # TODO
-- Get job applications summary
 - Filtering, sorting, pagination
 - CSV export
 

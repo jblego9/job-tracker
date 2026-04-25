@@ -5,8 +5,8 @@ import (
 	"database/sql"
 )
 
-func GetApplications() ([]backend.Application, error) {
-	rows, err := db.Query("SELECT id, company, role, location, date, status FROM applications;")
+func getApplications(query string, args ...any) ([]backend.Application, error) {
+	rows, err := db.Query(query, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -28,6 +28,14 @@ func GetApplications() ([]backend.Application, error) {
 	}
 
 	return apps, nil
+}
+
+func GetApplications() ([]backend.Application, error) {
+	return getApplications("SELECT id, company, role, location, date, status FROM applications;")
+}
+
+func GetApplicationsByStatus(status string) ([]backend.Application, error) {
+	return getApplications("SELECT id, company, role, location, date, status FROM applications WHERE status = ?;", status)
 }
 
 func GetApplication(id int) (*backend.Application, error) {
