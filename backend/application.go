@@ -1,6 +1,10 @@
 package backend
 
 type Application struct {
-	Id   int
-	Text string
+	Id       int
+	Company  string
+	Role     string
+	Location string
+	Date     string
+	Status   string
 }

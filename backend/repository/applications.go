@@ -6,7 +6,7 @@ import (
 )
 
 func GetApplications() ([]backend.Application, error) {
-	rows, err := db.Query("SELECT id, text FROM applications;")
+	rows, err := db.Query("SELECT id, company, role, location, date, status FROM applications;")
 	if err != nil {
 		return nil, err
 	}
@@ -15,9 +15,11 @@ func GetApplications() ([]backend.Application, error) {
 	apps := make([]backend.Application, 0)
 	for rows.Next() {
 		var app backend.Application
-		if err := rows.Scan(&app.Id, &app.Text); err != nil {
+
+		if err := rows.Scan(&app.Id, &app.Company, &app.Role, &app.Location, &app.Date, &app.Status); err != nil {
 			return nil, err
 		}
+
 		apps = append(apps, app)
 	}
 
@@ -29,10 +31,10 @@ func GetApplications() ([]backend.Application, error) {
 }
 
 func GetApplication(id int) (*backend.Application, error) {
-	row := db.QueryRow("SELECT id, text FROM applications WHERE id = ?;", id)
+	row := db.QueryRow("SELECT id, company, role, location, date, status FROM applications WHERE id = ?;", id)
 
 	var app backend.Application
-	if err := row.Scan(&app.Id, &app.Text); err != nil {
+	if err := row.Scan(&app.Id, &app.Company, &app.Role, &app.Location, &app.Date, &app.Status); err != nil {
 		if err == sql.ErrNoRows {
 			return nil, nil
 		}
@@ -48,12 +50,23 @@ func GetApplication(id int) (*backend.Application, error) {
 }
 
 func InsertApplication(app backend.Application) error {
-	_, err := db.Exec("INSERT INTO applications (text) VALUES (?);", app.Text)
+	query := `
+		INSERT INTO applications (company, role, location, date, status)
+		VALUES (?, ?, ?, ?, ?);
+	`
+
+	_, err := db.Exec(query, app.Company, app.Role, app.Location, app.Date, app.Status)
 	return err
 }
 
 func UpdateApplication(app backend.Application) error {
-	_, err := db.Exec("UPDATE applications SET text = ? WHERE id = ?;", app.Text, app.Id)
+	query := `
+		UPDATE applications
+		SET company = ?, role = ?, location = ?, date = ?, status = ?
+		WHERE id = ?;
+	`
+
+	_, err := db.Exec(query, app.Company, app.Role, app.Location, app.Date, app.Status, app.Id)
 	return err
 }
 

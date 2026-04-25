@@ -43,7 +43,11 @@ func setup() error {
 	query := `
 		CREATE TABLE IF NOT EXISTS applications (
 			id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-			text TEXT
+			company TEXT NOT NULL,
+			role TEXT NOT NULL,
+			location TEXT NOT NULL,
+			date TEXT,
+			status TEXT NOT NULL
 		);
 	`
 
