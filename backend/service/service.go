@@ -9,6 +9,10 @@ func GetApplications() ([]backend.Application, error) {
 	return repository.GetApplications()
 }
 
+func GetApplication(id int) (*backend.Application, error) {
+	return repository.GetApplication(id)
+}
+
 func AddApplication(app backend.Application) error {
 	return repository.InsertApplication(app)
 }

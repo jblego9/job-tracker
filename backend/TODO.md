@@ -1,5 +1,4 @@
 # TODO
-- Get job application by id
 - Edit job application
 - Prevent sql injections
 - Make asynchronous code able to safely work with synchronous sqlite database

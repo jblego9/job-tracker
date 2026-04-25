@@ -78,6 +78,27 @@ func GetApplications() ([]backend.Application, error) {
 	return apps, nil
 }
 
+func GetApplication(id int) (*backend.Application, error) {
+	query := `SELECT id, text FROM applications WHERE id = (?);`
+
+	row := db.QueryRow(query, id)
+
+	var app backend.Application
+	if err := row.Scan(&app.Id, &app.Text); err != nil {
+		if err == sql.ErrNoRows {
+			return nil, nil
+		}
+
+		return nil, err
+	}
+
+	if err := row.Err(); err != nil {
+		return nil, err
+	}
+
+	return &app, nil
+}
+
 func InsertApplication(app backend.Application) error {
 	query := `INSERT INTO applications (text) VALUES (?);`
 
