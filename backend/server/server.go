@@ -29,5 +29,6 @@ func setup() {
 	http.HandleFunc("GET /api/v1/applications", controller.GetApplications)
 	http.HandleFunc("GET /api/v1/applications/{id}", controller.GetApplication)
 	http.HandleFunc("POST /api/v1/applications", controller.AddApplication)
+	http.HandleFunc("PUT /api/v1/applications", controller.UpdateApplication)
 	http.HandleFunc("DELETE /api/v1/applications/{id}", controller.DeleteApplication)
 }

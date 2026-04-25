@@ -64,6 +64,32 @@ func AddApplication(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 }
 
+func UpdateApplication(w http.ResponseWriter, r *http.Request) {
+	var updated_app backend.Application
+	if err := json.NewDecoder(r.Body).Decode(&updated_app); err != nil {
+		writeBadRequestResponse(w, err)
+		return
+	}
+
+	current_app, err := service.GetApplication(updated_app.Id)
+	if err != nil {
+		writeInternalServerErrorResponse(w, err)
+		return
+	}
+
+	if current_app == nil {
+		w.WriteHeader(http.StatusNotFound)
+		return
+	}
+
+	if err := service.UpdateApplication(updated_app); err != nil {
+		writeInternalServerErrorResponse(w, err)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+}
+
 func DeleteApplication(w http.ResponseWriter, r *http.Request) {
 	id, err := parsePathId(r)
 	if err != nil {

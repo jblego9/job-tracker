@@ -17,6 +17,10 @@ func AddApplication(app backend.Application) error {
 	return repository.InsertApplication(app)
 }
 
+func UpdateApplication(app backend.Application) error {
+	return repository.UpdateApplication(app)
+}
+
 func DeleteApplication(id int) error {
 	return repository.DeleteApplication(id)
 }

@@ -58,6 +58,13 @@ func InsertApplication(app backend.Application) error {
 	return err
 }
 
+func UpdateApplication(app backend.Application) error {
+	query := `UPDATE applications SET text = (?) WHERE id = (?);`
+
+	_, err := db.Exec(query, app.Text, app.Id)
+	return err
+}
+
 func DeleteApplication(id int) error {
 	query := `DELETE FROM applications WHERE id = (?);`
 
