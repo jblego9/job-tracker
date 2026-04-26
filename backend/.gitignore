@@ -1,3 +1,6 @@
-api-tests.http
+# Install Specific
 .env
-data/
+cmd/data/
+
+# REST Client VSCode Extension
+api-tests.http
