@@ -30,7 +30,11 @@ func getApplications(query string, args ...any) ([]backend.Application, error) {
 	return apps, nil
 }
 
-func GetApplications() ([]backend.Application, error) {
+func GetApplications(statusFilter string) ([]backend.Application, error) {
+	if statusFilter != "" {
+		return GetApplicationsByStatus(statusFilter)
+	}
+
 	return getApplications("SELECT id, company, role, location, date, status FROM applications;")
 }
 

@@ -15,8 +15,8 @@ func DoesApplicationExist(id int) (bool, error) {
 	return true, err
 }
 
-func GetApplications() ([]backend.Application, error) {
-	return repository.GetApplications()
+func GetApplications(statusFilter string) ([]backend.Application, error) {
+	return repository.GetApplications(validateStatusFilter(statusFilter))
 }
 
 func GetApplication(id int) (*backend.Application, error) {

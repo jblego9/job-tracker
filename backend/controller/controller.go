@@ -10,16 +10,19 @@ import (
 )
 
 func parsePathId(r *http.Request) (int, error) {
-	parsed_id, err := strconv.ParseInt(r.PathValue("id"), 0, 64)
+	parsedId, err := strconv.ParseInt(r.PathValue("id"), 0, 64)
 	if err != nil {
 		return 0, err
 	}
 
-	return int(parsed_id), err
+	return int(parsedId), err
 }
 
-func GetApplications(w http.ResponseWriter, _ *http.Request) {
-	apps, err := service.GetApplications()
+func GetApplications(w http.ResponseWriter, r *http.Request) {
+	params := r.URL.Query()
+	statusFilter := params.Get("statusFilter")
+
+	apps, err := service.GetApplications(statusFilter)
 	if err != nil {
 		writeInternalServerErrorResponse(w, err)
 		return
