@@ -22,7 +22,7 @@ func Init() error {
 func dbPath() string {
 	dbPath := os.Getenv("DB_PATH")
 	if dbPath == "" {
-		dbPath = "./data/dev.db"
+		dbPath = "../data/dev.db"
 	}
 
 	return dbPath

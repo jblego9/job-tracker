@@ -5,6 +5,7 @@ import (
 	"backend/repository"
 )
 
+// TODO: See if SQL has a feature to check for a row without getting it
 func DoesApplicationExist(id int) (bool, error) {
 	app, err := GetApplication(id)
 	if err != nil || app == nil {
@@ -34,6 +35,7 @@ func DeleteApplication(id int) error {
 	return repository.DeleteApplication(id)
 }
 
+// TODO: Find a better way to get the status counts. Maybe SQL has a feature for it?
 func GetSummary() (*backend.Summary, error) {
 	var summary backend.Summary
 
