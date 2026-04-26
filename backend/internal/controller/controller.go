@@ -1,12 +1,12 @@
 package controller
 
 import (
-	"backend"
 	"encoding/json"
 	"net/http"
 	"strconv"
 
-	"backend/service"
+	"backend/internal"
+	"backend/internal/service"
 )
 
 func parsePathId(r *http.Request) (int, error) {
@@ -53,7 +53,7 @@ func GetApplication(w http.ResponseWriter, r *http.Request) {
 }
 
 func AddApplication(w http.ResponseWriter, r *http.Request) {
-	var app backend.Application
+	var app internal.Application
 	if err := json.NewDecoder(r.Body).Decode(&app); err != nil {
 		writeBadRequestResponse(w, err)
 		return
@@ -68,7 +68,7 @@ func AddApplication(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateApplication(w http.ResponseWriter, r *http.Request) {
-	var updated_app backend.Application
+	var updated_app internal.Application
 	if err := json.NewDecoder(r.Body).Decode(&updated_app); err != nil {
 		writeBadRequestResponse(w, err)
 		return

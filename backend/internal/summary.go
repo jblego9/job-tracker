@@ -1,4 +1,4 @@
-package backend
+package internal
 
 type Summary struct {
 	Total                  int

@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 
-	"backend/controller"
+	"backend/internal/controller"
 )
 
 func Start() {

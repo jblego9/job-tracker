@@ -1,8 +1,8 @@
 package service
 
 import (
-	"backend"
-	"backend/repository"
+	"backend/internal"
+	"backend/internal/repository"
 )
 
 // TODO: See if SQL has a feature to check for a row without getting it
@@ -15,19 +15,19 @@ func DoesApplicationExist(id int) (bool, error) {
 	return true, err
 }
 
-func GetApplications(statusFilter string) ([]backend.Application, error) {
+func GetApplications(statusFilter string) ([]internal.Application, error) {
 	return repository.GetApplications(validateStatusFilter(statusFilter))
 }
 
-func GetApplication(id int) (*backend.Application, error) {
+func GetApplication(id int) (*internal.Application, error) {
 	return repository.GetApplication(id)
 }
 
-func AddApplication(app backend.Application) error {
+func AddApplication(app internal.Application) error {
 	return repository.InsertApplication(app)
 }
 
-func UpdateApplication(app backend.Application) error {
+func UpdateApplication(app internal.Application) error {
 	return repository.UpdateApplication(app)
 }
 
@@ -36,8 +36,8 @@ func DeleteApplication(id int) error {
 }
 
 // TODO: Find a better way to get the status counts. Maybe SQL has a feature for it?
-func GetSummary() (*backend.Summary, error) {
-	var summary backend.Summary
+func GetSummary() (*internal.Summary, error) {
+	var summary internal.Summary
 
 	apps, err := repository.GetApplicationsByStatus("NO_RESPONSE")
 	if err != nil {

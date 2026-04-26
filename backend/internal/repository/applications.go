@@ -1,20 +1,21 @@
 package repository
 
 import (
-	"backend"
 	"database/sql"
+
+	"backend/internal"
 )
 
-func getApplications(query string, args ...any) ([]backend.Application, error) {
+func getApplications(query string, args ...any) ([]internal.Application, error) {
 	rows, err := db.Query(query, args...)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
 
-	apps := make([]backend.Application, 0)
+	apps := make([]internal.Application, 0)
 	for rows.Next() {
-		var app backend.Application
+		var app internal.Application
 
 		if err := rows.Scan(&app.Id, &app.Company, &app.Role, &app.Location, &app.Date, &app.Status); err != nil {
 			return nil, err
@@ -30,7 +31,7 @@ func getApplications(query string, args ...any) ([]backend.Application, error) {
 	return apps, nil
 }
 
-func GetApplications(statusFilter string) ([]backend.Application, error) {
+func GetApplications(statusFilter string) ([]internal.Application, error) {
 	if statusFilter != "" {
 		return GetApplicationsByStatus(statusFilter)
 	}
@@ -38,14 +39,14 @@ func GetApplications(statusFilter string) ([]backend.Application, error) {
 	return getApplications("SELECT id, company, role, location, date, status FROM applications;")
 }
 
-func GetApplicationsByStatus(status string) ([]backend.Application, error) {
+func GetApplicationsByStatus(status string) ([]internal.Application, error) {
 	return getApplications("SELECT id, company, role, location, date, status FROM applications WHERE status = ?;", status)
 }
 
-func GetApplication(id int) (*backend.Application, error) {
+func GetApplication(id int) (*internal.Application, error) {
 	row := db.QueryRow("SELECT id, company, role, location, date, status FROM applications WHERE id = ?;", id)
 
-	var app backend.Application
+	var app internal.Application
 	if err := row.Scan(&app.Id, &app.Company, &app.Role, &app.Location, &app.Date, &app.Status); err != nil {
 		if err == sql.ErrNoRows {
 			return nil, nil
@@ -61,7 +62,7 @@ func GetApplication(id int) (*backend.Application, error) {
 	return &app, nil
 }
 
-func InsertApplication(app backend.Application) error {
+func InsertApplication(app internal.Application) error {
 	query := `
 		INSERT INTO applications (company, role, location, date, status)
 		VALUES (?, ?, ?, ?, ?);
@@ -71,7 +72,7 @@ func InsertApplication(app backend.Application) error {
 	return err
 }
 
-func UpdateApplication(app backend.Application) error {
+func UpdateApplication(app internal.Application) error {
 	query := `
 		UPDATE applications
 		SET company = ?, role = ?, location = ?, date = ?, status = ?

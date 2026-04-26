@@ -6,8 +6,8 @@ import (
 	"github.com/joho/godotenv"
 	_ "modernc.org/sqlite"
 
-	"backend/repository"
-	"backend/server"
+	"backend/internal/repository"
+	"backend/internal/server"
 )
 
 func main() {

@@ -1,11 +1,12 @@
 package main
 
 import (
-	"backend/repository"
 	"log"
 
 	"github.com/joho/godotenv"
 	_ "modernc.org/sqlite"
+
+	"backend/internal/repository"
 )
 
 func main() {

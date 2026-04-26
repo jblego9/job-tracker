@@ -1,9 +1,9 @@
 package main
 
-import "backend"
+import "backend/internal"
 
-func GetTestData() []backend.Application {
-	return []backend.Application{
+func GetTestData() []internal.Application {
+	return []internal.Application{
 		{
 			Company:  "Company1",
 			Role:     "Role1",
