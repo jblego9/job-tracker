@@ -1,6 +1,8 @@
 # Running
 Run from the 'cmd/' directory to have environment variables setup, allowing the backend to work with databases in the 'cmd/data/' directory.
 
+Example: `.../cmd go run ./server`
+
 # Environment setup
 Place '.env' in the 'cmd/' directory and set the environment variables.
 
