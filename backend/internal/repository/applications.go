@@ -2,12 +2,20 @@ package repository
 
 import (
 	"database/sql"
+	"strings"
 
 	"backend/internal"
 )
 
-func getApplications(query string, args ...any) ([]internal.Application, error) {
-	rows, err := db.Query(query, args...)
+func getApplications(queryAdditions []string, args ...any) ([]internal.Application, error) {
+	var query strings.Builder
+	query.WriteString(`SELECT id, company, role, location, date, status FROM applications`)
+	for _, addition := range queryAdditions {
+		query.WriteString(" " + addition)
+	}
+	query.WriteString(";")
+
+	rows, err := db.Query(query.String(), args...)
 	if err != nil {
 		return nil, err
 	}
@@ -32,15 +40,15 @@ func getApplications(query string, args ...any) ([]internal.Application, error) 
 }
 
 func GetApplications(statusFilter string) ([]internal.Application, error) {
+	queryAdditions := make([]string, 0)
+	queryArguments := make([]any, 0)
+
 	if statusFilter != "" {
-		return GetApplicationsByStatus(statusFilter)
+		queryAdditions = append(queryAdditions, "WHERE status = ?")
+		queryArguments = append(queryArguments, statusFilter)
 	}
 
-	return getApplications("SELECT id, company, role, location, date, status FROM applications;")
-}
-
-func GetApplicationsByStatus(status string) ([]internal.Application, error) {
-	return getApplications("SELECT id, company, role, location, date, status FROM applications WHERE status = ?;", status)
+	return getApplications(queryAdditions, queryArguments...)
 }
 
 func GetApplication(id int) (*internal.Application, error) {

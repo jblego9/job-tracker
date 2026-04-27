@@ -39,25 +39,25 @@ func DeleteApplication(id int) error {
 func GetSummary() (*internal.Summary, error) {
 	var summary internal.Summary
 
-	apps, err := repository.GetApplicationsByStatus("NO_RESPONSE")
+	apps, err := repository.GetApplications("NO_RESPONSE")
 	if err != nil {
 		return nil, err
 	}
 	summary.TotalNoResponse = len(apps)
 
-	apps, err = repository.GetApplicationsByStatus("REJECTED")
+	apps, err = repository.GetApplications("REJECTED")
 	if err != nil {
 		return nil, err
 	}
 	summary.TotalRejected = len(apps)
 
-	apps, err = repository.GetApplicationsByStatus("AWAITING_INTERVIEW")
+	apps, err = repository.GetApplications("AWAITING_INTERVIEW")
 	if err != nil {
 		return nil, err
 	}
 	summary.TotalAwaitingInterview = len(apps)
 
-	apps, err = repository.GetApplicationsByStatus("ACCEPTED")
+	apps, err = repository.GetApplications("ACCEPTED")
 	if err != nil {
 		return nil, err
 	}
