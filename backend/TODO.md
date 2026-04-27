@@ -1,5 +1,5 @@
 # TODO
-- Sorting, pagination
+- Pagination
 - CSV export
 
 # Potential Future Stuff

@@ -39,13 +39,17 @@ func getApplications(queryAdditions []string, args ...any) ([]internal.Applicati
 	return apps, nil
 }
 
-func GetApplications(statusFilter string) ([]internal.Application, error) {
+func GetApplications(statusFilter string, sortBy string, sortDir string) ([]internal.Application, error) {
 	queryAdditions := make([]string, 0)
 	queryArguments := make([]any, 0)
 
 	if statusFilter != "" {
 		queryAdditions = append(queryAdditions, "WHERE status = ?")
 		queryArguments = append(queryArguments, statusFilter)
+	}
+
+	if sortBy != "" && sortDir != "" {
+		queryAdditions = append(queryAdditions, "ORDER BY", sortBy, strings.ToUpper(sortDir))
 	}
 
 	return getApplications(queryAdditions, queryArguments...)

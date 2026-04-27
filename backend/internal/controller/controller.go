@@ -21,8 +21,10 @@ func parsePathId(r *http.Request) (int, error) {
 func GetApplications(w http.ResponseWriter, r *http.Request) {
 	params := r.URL.Query()
 	statusFilter := params.Get("statusFilter")
+	sortBy := params.Get("sortBy")
+	sortDir := params.Get("sortDir")
 
-	apps, err := service.GetApplications(statusFilter)
+	apps, err := service.GetApplications(statusFilter, sortBy, sortDir)
 	if err != nil {
 		writeInternalServerErrorResponse(w, err)
 		return
