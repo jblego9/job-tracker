@@ -5,16 +5,6 @@ import (
 	"backend/internal/repository"
 )
 
-// TODO: See if SQL has a feature to check for a row without getting it
-func DoesApplicationExist(id int) (bool, error) {
-	app, err := GetApplication(id)
-	if err != nil || app == nil {
-		return false, err
-	}
-
-	return true, err
-}
-
 func GetApplications(statusFilter string, sortBy string, sortDir string, pageNum string, pageSize string) ([]internal.Application, error) {
 	return repository.GetApplications(
 		validateStatusFilter(statusFilter),
@@ -39,6 +29,10 @@ func UpdateApplication(app internal.Application) error {
 
 func DeleteApplication(id int) error {
 	return repository.DeleteApplication(id)
+}
+
+func DoesApplicationExist(id int) (bool, error) {
+	return repository.DoesApplicationExist(id)
 }
 
 // TODO: Find a better way to get the status counts. Maybe SQL has a feature for it?

@@ -2,6 +2,7 @@ package repository
 
 import (
 	"database/sql"
+	"errors"
 	"strconv"
 	"strings"
 
@@ -90,17 +91,49 @@ func InsertApplication(app internal.Application) error {
 }
 
 func UpdateApplication(app internal.Application) error {
+	exists, err := DoesApplicationExist(app.Id)
+	if err != nil {
+		return err
+	}
+
+	if !exists {
+		return errors.New("Application with id " + strconv.Itoa(app.Id) + " does not exist")
+	}
+
 	query := `
 		UPDATE applications
 		SET company = ?, role = ?, location = ?, date = ?, status = ?
 		WHERE id = ?;
 	`
 
-	_, err := db.Exec(query, app.Company, app.Role, app.Location, app.Date, app.Status, app.Id)
+	_, err = db.Exec(query, app.Company, app.Role, app.Location, app.Date, app.Status, app.Id)
 	return err
 }
 
 func DeleteApplication(id int) error {
-	_, err := db.Exec("DELETE FROM applications WHERE id = ?;", id)
+	exists, err := DoesApplicationExist(id)
+	if err != nil {
+		return err
+	}
+
+	if !exists {
+		return errors.New("Application with id " + strconv.Itoa(id) + " does not exist")
+	}
+
+	_, err = db.Exec("DELETE FROM applications WHERE id = ?;", id)
 	return err
+}
+
+func DoesApplicationExist(id int) (bool, error) {
+	var ignoredId int
+	err := db.QueryRow("SELECT id, company, role, location, date, status FROM applications WHERE id = ?;", id).Scan(&ignoredId)
+	if err != nil {
+		if err != sql.ErrNoRows {
+			return false, err
+		}
+
+		return false, nil
+	}
+
+	return true, nil
 }
