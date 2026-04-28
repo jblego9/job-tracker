@@ -126,7 +126,7 @@ func DeleteApplication(id int) error {
 
 func DoesApplicationExist(id int) (bool, error) {
 	var ignoredId int
-	err := db.QueryRow("SELECT id, company, role, location, date, status FROM applications WHERE id = ?;", id).Scan(&ignoredId)
+	err := db.QueryRow("SELECT id FROM applications WHERE id = ?;", id).Scan(&ignoredId)
 	if err != nil {
 		if err != sql.ErrNoRows {
 			return false, err
