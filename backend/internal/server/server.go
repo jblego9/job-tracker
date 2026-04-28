@@ -32,4 +32,5 @@ func setup() {
 	http.HandleFunc("PUT /api/v1/applications", controller.UpdateApplication)
 	http.HandleFunc("DELETE /api/v1/applications/{id}", controller.DeleteApplication)
 	http.HandleFunc("GET /api/v1/applications/summary", controller.GetSummary)
+	http.HandleFunc("GET /api/v1/applications/csv-export", controller.GetApplicationsCsvExport)
 }

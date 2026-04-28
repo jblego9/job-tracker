@@ -127,3 +127,20 @@ func GetSummary(w http.ResponseWriter, _ *http.Request) {
 
 	writeJsonResponse(w, *summary)
 }
+
+func GetApplicationsCsvExport(w http.ResponseWriter, _ *http.Request) {
+	apps, err := service.GetApplications("", "", "", "", "")
+	if err != nil {
+		writeInternalServerErrorResponse(w, err)
+		return
+	}
+
+	records := make([][]string, len(apps)+1)
+
+	records = append(records, []string{"Id", "Company", "Role", "Location", "Date", "Status"})
+	for _, app := range apps {
+		records = append(records, internal.ApplicationToCsvRecord(app))
+	}
+
+	writeCsvResponse(w, records)
+}
