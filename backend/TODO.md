@@ -1,6 +1,4 @@
-# TODO
-
-## Potential Future Stuff
+# Potential Future Stuff
 - Logging
 - Graceful shutdown
 - Tests
