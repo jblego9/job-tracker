@@ -10,12 +10,7 @@ import (
 )
 
 func parsePathId(r *http.Request) (int, error) {
-	parsedId, err := strconv.ParseInt(r.PathValue("id"), 0, 64)
-	if err != nil {
-		return 0, err
-	}
-
-	return int(parsedId), err
+	return strconv.Atoi(r.PathValue("id"))
 }
 
 func GetApplications(w http.ResponseWriter, r *http.Request) {
@@ -23,8 +18,10 @@ func GetApplications(w http.ResponseWriter, r *http.Request) {
 	statusFilter := params.Get("statusFilter")
 	sortBy := params.Get("sortBy")
 	sortDir := params.Get("sortDir")
+	pageNum := params.Get("pageNum")
+	pageSize := params.Get("pageSize")
 
-	apps, err := service.GetApplications(statusFilter, sortBy, sortDir)
+	apps, err := service.GetApplications(statusFilter, sortBy, sortDir, pageNum, pageSize)
 	if err != nil {
 		writeInternalServerErrorResponse(w, err)
 		return

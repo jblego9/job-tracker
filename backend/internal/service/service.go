@@ -15,11 +15,13 @@ func DoesApplicationExist(id int) (bool, error) {
 	return true, err
 }
 
-func GetApplications(statusFilter string, sortBy string, sortDir string) ([]internal.Application, error) {
+func GetApplications(statusFilter string, sortBy string, sortDir string, pageNum string, pageSize string) ([]internal.Application, error) {
 	return repository.GetApplications(
 		validateStatusFilter(statusFilter),
 		validateSortBy(sortBy),
 		validateSortDir(sortDir),
+		validatePageParam(pageNum),
+		validatePageParam(pageSize),
 	)
 }
 
@@ -43,25 +45,25 @@ func DeleteApplication(id int) error {
 func GetSummary() (*internal.Summary, error) {
 	var summary internal.Summary
 
-	apps, err := repository.GetApplications("NO_RESPONSE", "", "")
+	apps, err := repository.GetApplications("NO_RESPONSE", "", "", nil, nil)
 	if err != nil {
 		return nil, err
 	}
 	summary.TotalNoResponse = len(apps)
 
-	apps, err = repository.GetApplications("REJECTED", "", "")
+	apps, err = repository.GetApplications("REJECTED", "", "", nil, nil)
 	if err != nil {
 		return nil, err
 	}
 	summary.TotalRejected = len(apps)
 
-	apps, err = repository.GetApplications("AWAITING_INTERVIEW", "", "")
+	apps, err = repository.GetApplications("AWAITING_INTERVIEW", "", "", nil, nil)
 	if err != nil {
 		return nil, err
 	}
 	summary.TotalAwaitingInterview = len(apps)
 
-	apps, err = repository.GetApplications("ACCEPTED", "", "")
+	apps, err = repository.GetApplications("ACCEPTED", "", "", nil, nil)
 	if err != nil {
 		return nil, err
 	}

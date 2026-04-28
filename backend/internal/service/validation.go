@@ -1,5 +1,7 @@
 package service
 
+import "strconv"
+
 func validateStatusFilter(filter string) string {
 	var validated string
 	switch filter {
@@ -50,4 +52,16 @@ func validateSortDir(sortDir string) string {
 	}
 
 	return validated
+}
+
+func validatePageParam(param string) *int {
+	var value int
+
+	parsed, err := strconv.ParseInt(param, 0, 64)
+	if err != nil {
+		return nil
+	}
+	value = int(parsed)
+
+	return &value
 }

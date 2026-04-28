@@ -2,6 +2,7 @@ package repository
 
 import (
 	"database/sql"
+	"strconv"
 	"strings"
 
 	"backend/internal"
@@ -39,7 +40,7 @@ func getApplications(queryAdditions []string, args ...any) ([]internal.Applicati
 	return apps, nil
 }
 
-func GetApplications(statusFilter string, sortBy string, sortDir string) ([]internal.Application, error) {
+func GetApplications(statusFilter string, sortBy string, sortDir string, pageNum *int, pageSize *int) ([]internal.Application, error) {
 	queryAdditions := make([]string, 0)
 	queryArguments := make([]any, 0)
 
@@ -50,6 +51,10 @@ func GetApplications(statusFilter string, sortBy string, sortDir string) ([]inte
 
 	if sortBy != "" && sortDir != "" {
 		queryAdditions = append(queryAdditions, "ORDER BY", sortBy, strings.ToUpper(sortDir))
+	}
+
+	if pageNum != nil && pageSize != nil {
+		queryAdditions = append(queryAdditions, "LIMIT", strconv.Itoa(*pageSize), "OFFSET", strconv.Itoa(*pageNum**pageSize))
 	}
 
 	return getApplications(queryAdditions, queryArguments...)
