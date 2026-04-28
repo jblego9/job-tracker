@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"bytes"
 	"encoding/csv"
 	"encoding/json"
 	"io"
@@ -17,20 +18,24 @@ func writeBadRequestResponse(w http.ResponseWriter, err error) {
 	io.WriteString(w, err.Error())
 }
 
-// TODO: Prepare content before writing
 func writeJsonResponse(w http.ResponseWriter, v any) {
-	w.Header().Set("Content-Type", "application/json")
-	if err := json.NewEncoder(w).Encode(v); err != nil {
+	bytes, err := json.Marshal(v)
+	if err != nil {
 		writeInternalServerErrorResponse(w, err)
 		return
 	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(bytes)
 }
 
-// TODO: Prepare content before writing
 func writeCsvResponse(w http.ResponseWriter, records [][]string) {
-	w.Header().Set("Content-Type", "text/csv")
-	if err := csv.NewWriter(w).WriteAll(records); err != nil {
+	var buffer bytes.Buffer
+	if err := csv.NewWriter(&buffer).WriteAll(records); err != nil {
 		writeInternalServerErrorResponse(w, err)
 		return
 	}
+
+	w.Header().Set("Content-Type", "text/csv")
+	w.Write(buffer.Bytes())
 }
