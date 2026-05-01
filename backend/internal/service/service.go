@@ -35,35 +35,6 @@ func DoesApplicationExist(id int) (bool, error) {
 	return repository.DoesApplicationExist(id)
 }
 
-// TODO: Find a better way to get the status counts. Maybe SQL has a feature for it?
 func GetSummary() (*internal.Summary, error) {
-	var summary internal.Summary
-
-	apps, err := repository.GetApplications("NO_RESPONSE", "", "", nil, nil)
-	if err != nil {
-		return nil, err
-	}
-	summary.TotalNoResponse = len(apps)
-
-	apps, err = repository.GetApplications("REJECTED", "", "", nil, nil)
-	if err != nil {
-		return nil, err
-	}
-	summary.TotalRejected = len(apps)
-
-	apps, err = repository.GetApplications("AWAITING_INTERVIEW", "", "", nil, nil)
-	if err != nil {
-		return nil, err
-	}
-	summary.TotalAwaitingInterview = len(apps)
-
-	apps, err = repository.GetApplications("ACCEPTED", "", "", nil, nil)
-	if err != nil {
-		return nil, err
-	}
-	summary.TotalAccepted = len(apps)
-
-	summary.Total = summary.TotalNoResponse + summary.TotalRejected + summary.TotalAwaitingInterview + summary.TotalAccepted
-
-	return &summary, nil
+	return repository.GetSummary()
 }

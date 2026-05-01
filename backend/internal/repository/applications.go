@@ -137,3 +137,40 @@ func DoesApplicationExist(id int) (bool, error) {
 
 	return true, nil
 }
+
+func GetSummary() (*internal.Summary, error) {
+	query := `SELECT COUNT(*) AS count, status FROM applications GROUP BY status`
+
+	rows, err := db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var summary internal.Summary
+	statusMap := make(map[string]int)
+
+	for rows.Next() {
+		var status string
+		var count int
+		if err := rows.Scan(&count, &status); err != nil {
+			return nil, err
+		}
+
+		statusMap[status] = count
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+
+	summary = internal.Summary{
+		TotalNoResponse:        statusMap["NO_RESPONSE"],
+		TotalRejected:          statusMap["REJECTED"],
+		TotalAwaitingInterview: statusMap["AWAITING_INTERVIEW"],
+		TotalAccepted:          statusMap["ACCEPTED"],
+	}
+	summary.Total = summary.TotalNoResponse + summary.TotalRejected + summary.TotalAwaitingInterview + summary.TotalAccepted
+
+	return &summary, nil
+}
