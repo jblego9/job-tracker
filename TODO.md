@@ -1,2 +1,4 @@
 # TODO
-- Get backend to serve test frontend
+- Finish frontend
+- Serve frontend from backend
+- Production and development database environments
