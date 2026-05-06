@@ -1,11 +1,11 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './styles.css'
-import ApplicationsTable from './components/applications-table.jsx'
+import ApplicationsList from './components/applications-list.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ApplicationsTable applications={[
+    <ApplicationsList applications={[
       {
         Id: 1,
         Date: "2026-05-04",

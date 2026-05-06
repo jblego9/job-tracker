@@ -1,12 +1,44 @@
-table {
-  width: 100%;
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
 
-  border-collapse: collapse;
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.applications-list {
+    margin: 0;
+    padding: 0;
 }
 
 .application {
-  & * {
-    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 15px;
+    padding: 15px;
+
     border: 1px solid gray;
-  }
+}
+
+.application-row {
+    display: flex;
+
+    & p {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    & p:not(:last-child) {
+        margin-right: 20px;
+    }
+}
+
+.application-row-margin-under {
+    margin-bottom: 20px;
+}
+
+.application-edit-button {
+    font-size: large;
 }
