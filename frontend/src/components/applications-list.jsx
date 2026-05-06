@@ -24,5 +24,5 @@ export default function ApplicationsList({ applications }) {
                 </li>
             ))}
         </ol>
-    )
+    );
 }
