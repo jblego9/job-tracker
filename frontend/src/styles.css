@@ -12,33 +12,46 @@ body {
     padding: 0;
 }
 
-.application {
+.application-card {
     display: flex;
     justify-content: space-between;
 
-    margin-bottom: 15px;
+    &:not(:last-child) {
+        margin-bottom: 15px;
+    }
     padding: 15px;
 
     border: 1px solid gray;
 }
 
-.application-row {
+.application-card__row {
     display: flex;
 
     & p {
         margin-top: 5px;
         margin-bottom: 5px;
-    }
 
-    & p:not(:last-child) {
-        margin-right: 20px;
+        &:not(:last-child) {
+            margin-right: 20px;
+        }
     }
 }
 
-.application-row-margin-under {
-    margin-bottom: 20px;
+.application-card__row--spaced {
+    margin-top: 20px;
 }
 
-.application-edit-button {
+.application-card__row--main {
     font-size: large;
+    font-weight: bold;
+}
+
+.application-card__row--details {
+    color: rgb(60, 60, 60);
+}
+
+.application-card__edit-button {
+    padding: 5px;
+
+    cursor: pointer;
 }
