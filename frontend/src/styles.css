@@ -7,9 +7,21 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-body {
+html {
+    height: 100%;
+}
+
+body,
+#root {
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+
     margin: 0;
     padding: 0;
+
+    overflow-y: hidden;
 }
 
 .header {
@@ -26,6 +38,48 @@ body {
 
         text-decoration: none;
     }
+}
+
+.page-body {
+    display: flex;
+
+    min-height: 0;
+    height: 100%;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+
+    border-right: 2px solid var(--border-color);
+}
+
+.sidebar__link {
+    padding: 10px 20px;
+
+    font-size: large;
+    text-decoration: none;
+
+    background-color: white;
+    color: black;
+
+    &:hover:not(.sidebar__link--active) {
+        background-color: hsl(from white h s 90%);
+    }
+}
+
+.sidebar__link--active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.content {
+    flex-grow: 1;
+
+    padding: 10px;
+
+    overflow-y: auto;
 }
 
 .applications-list {
@@ -48,9 +102,13 @@ body {
 .application-card__row {
     display: flex;
 
+    &:not(:last-child) {
+        margin-bottom: 10px;
+    }
+
     & p {
-        margin-top: 5px;
-        margin-bottom: 5px;
+        margin-top: 0px;
+        margin-bottom: 0px;
 
         &:not(:last-child) {
             margin-right: 20px;
@@ -63,7 +121,6 @@ body {
 }
 
 .application-card__row--main {
-    font-size: large;
     font-weight: bold;
 }
 

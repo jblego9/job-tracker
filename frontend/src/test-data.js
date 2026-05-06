@@ -32,5 +32,37 @@ export default function getTestData() {
             Location: "Location4",
             Status: "ACCEPTED",
         },
+        {
+            Id: 5,
+            Date: "2026-04-30",
+            Company: "Company5",
+            Role: "Role5",
+            Location: "Location5",
+            Status: "REJECTED",
+        },
+        {
+            Id: 6,
+            Date: "2026-05-01",
+            Company: "Company6",
+            Role: "Role6",
+            Location: "Location6",
+            Status: "REJECTED",
+        },
+        {
+            Id: 7,
+            Date: "2026-05-01",
+            Company: "Company7",
+            Role: "Role7",
+            Location: "Location7",
+            Status: "AWAITING_INTERVIEW",
+        },
+        {
+            Id: 8,
+            Date: "2026-05-03",
+            Company: "Company8",
+            Role: "Role8",
+            Location: "Location8",
+            Status: "ACCEPTED",
+        },
     ];
 }
