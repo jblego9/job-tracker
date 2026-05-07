@@ -5,6 +5,8 @@ import "strconv"
 func validateStatusFilter(filter string) string {
 	var validated string
 	switch filter {
+	case "AWAITING_RESPONSE":
+		fallthrough
 	case "NO_RESPONSE":
 		fallthrough
 	case "REJECTED":

@@ -37,7 +37,7 @@ func GetTestData() []internal.Application {
 			Role:     "Role5",
 			Location: "Location5",
 			Date:     "",
-			Status:   "NO_RESPONSE",
+			Status:   "AWAITING_RESPONSE",
 		},
 		{
 			Company:  "Company6",
@@ -65,7 +65,7 @@ func GetTestData() []internal.Application {
 			Role:     "Role9",
 			Location: "Location9",
 			Date:     "2026-05-02",
-			Status:   "NO_RESPONSE",
+			Status:   "AWAITING_RESPONSE",
 		},
 		{
 			Company:  "Company10",

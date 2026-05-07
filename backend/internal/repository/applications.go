@@ -165,6 +165,7 @@ func GetSummary() (*internal.Summary, error) {
 	}
 
 	summary = internal.Summary{
+		TotalAwaitingResponse:  statusMap["AWAITING_RESPONSE"],
 		TotalNoResponse:        statusMap["NO_RESPONSE"],
 		TotalRejected:          statusMap["REJECTED"],
 		TotalAwaitingInterview: statusMap["AWAITING_INTERVIEW"],
