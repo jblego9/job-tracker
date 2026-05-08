@@ -7,7 +7,7 @@ import (
 
 func GetApplications(statusFilter string, sortBy string, sortDir string, pageNum string, pageSize string) ([]internal.Application, error) {
 	return repository.GetApplications(
-		validateStatusFilter(statusFilter),
+		ValidateStatus(statusFilter),
 		validateSortBy(sortBy),
 		validateSortDir(sortDir),
 		validatePageParam(pageNum),

@@ -2,9 +2,9 @@ package service
 
 import "strconv"
 
-func validateStatusFilter(filter string) string {
+func ValidateStatus(status string) string {
 	var validated string
-	switch filter {
+	switch status {
 	case "AWAITING_RESPONSE":
 		fallthrough
 	case "NO_RESPONSE":
@@ -14,7 +14,7 @@ func validateStatusFilter(filter string) string {
 	case "AWAITING_INTERVIEW":
 		fallthrough
 	case "ACCEPTED":
-		validated = filter
+		validated = status 
 	default:
 		validated = ""
 	}

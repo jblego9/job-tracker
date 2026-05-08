@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 	"strconv"
 
@@ -58,6 +59,11 @@ func AddApplication(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if service.ValidateStatus(app.Status) == "" {
+		writeBadRequestResponse(w, errors.New("Invalid status"))
+		return
+	}
+
 	if err := service.AddApplication(app); err != nil {
 		writeInternalServerErrorResponse(w, err)
 		return
@@ -70,6 +76,11 @@ func UpdateApplication(w http.ResponseWriter, r *http.Request) {
 	var updated_app internal.Application
 	if err := json.NewDecoder(r.Body).Decode(&updated_app); err != nil {
 		writeBadRequestResponse(w, err)
+		return
+	}
+
+	if service.ValidateStatus(updated_app.Status) == "" {
+		writeBadRequestResponse(w, errors.New("Invalid status"))
 		return
 	}
 
