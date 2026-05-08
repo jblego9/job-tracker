@@ -1,4 +1,7 @@
+# Todo
+- Look into validation
+- Look into logging
+
 # Potential Future Stuff
-- Logging
 - Graceful shutdown
 - Tests
