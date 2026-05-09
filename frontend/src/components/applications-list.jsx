@@ -19,8 +19,12 @@ export default function ApplicationsList({ applications }) {
                                 <p>{app.Location}</p>
                             </div>
                             <div className="application-card__row application-card__row--details application-card__row--spaced">
-                                <p>{app.Date}</p>
-                                <p>-</p>
+                                {hasDate(app.Date) && (
+                                    <>
+                                        <p>{app.Date}</p>
+                                        <p>-</p>
+                                    </>
+                                )}
                                 <p>{app.Status}</p>
                             </div>
                         </div>
@@ -35,4 +39,8 @@ export default function ApplicationsList({ applications }) {
             )}
         </>
     );
+}
+
+function hasDate(date) {
+    return date != null && date != "" && date != undefined;
 }
