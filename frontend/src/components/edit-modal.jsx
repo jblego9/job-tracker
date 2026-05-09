@@ -14,18 +14,18 @@ export default function EditModal({ app, onClose }) {
                 <p className="edit-modal-application-id">Application ID: {app.Id}</p>
 
                 <h2>Job Details</h2>
-                <label for="Company">Company</label>
-                <input type="text" name="Company" required />
-                <label for="Role">Role</label>
-                <input type="text" name="Role" required />
-                <label for="Location">Location</label>
-                <input type="text" name="Location" required />
+                <label htmlFor="Company">Company</label>
+                <input type="text" id="Company" name="Company" defaultValue={app.Company} required />
+                <label htmlFor="Role">Role</label>
+                <input type="text" id="Role" name="Role" defaultValue={app.Role} required />
+                <label htmlFor="Location">Location</label>
+                <input type="text" id="Location" name="Location" defaultValue={app.Location} required />
 
                 <h2>Application Details</h2>
-                <label for="Date">Date</label>
-                <input type="date" name="Date"/>
-                <label for="Status">Status</label>
-                <select name="Status" required>
+                <label htmlFor="Date">Date</label>
+                <input type="date" id="Date" name="Date" defaultValue={app.Date} />
+                <label htmlFor="Status">Status</label>
+                <select id="Status" name="Status" defaultValue={app.Status} required>
                     <option value="AWAITING_RESPONSE">Awaiting Response</option>
                     <option value="NO_RESPONSE">No Response</option>
                     <option value="AWAITING_INTERVIEW">Awaiting Interview</option>
@@ -37,7 +37,11 @@ export default function EditModal({ app, onClose }) {
                     <p className="modal-form__action-message"></p>
                     <button 
                         className="modal-form__button"
-                        onClick={() => dialogRef.current.close()}
+                        onClick={() => {
+                                event.preventDefault();
+                                dialogRef.current.close();
+                            }
+                        }
                     >
                         Cancel
                     </button>
