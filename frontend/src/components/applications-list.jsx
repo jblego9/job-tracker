@@ -1,5 +1,5 @@
 import { useState } from "react";
-import EditModal from "./edit-modal";
+import EditModal from "./edit-modal.jsx";
 
 export default function ApplicationsList({ applications }) {
     const [appToEdit, setAppToEdit] = useState(null);
@@ -35,7 +35,10 @@ export default function ApplicationsList({ applications }) {
                 ))}
             </ol>
             {appToEdit && (
-                <EditModal app={appToEdit} onClose={() => setAppToEdit(null)}/>
+                <EditModal app={appToEdit} onClose={() => {
+                    setAppToEdit(null);
+                    window.location.reload();
+                }}/>
             )}
         </>
     );

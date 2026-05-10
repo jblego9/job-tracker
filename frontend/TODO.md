@@ -1,5 +1,7 @@
 # TODO
-- Make edit request to backend and reload all data
-- Failed to connect to backend error
 - Add application modal
 - Delete application from within edit modal
+
+## Nice to have improvements
+- Instead of reloading page to fetch changes, update frontend side
+- Failed to connect to backend error

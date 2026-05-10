@@ -18,7 +18,7 @@ export async function putData(url, data) {
     });
 
     if (!response.ok)
-        throw new Error(`Failed to put data to '${url}'. Response status: ${response.status}. Data: ${data}`);
+        throw new Error(`Failed to put data to '${url}'. Response status: ${response.status}. Data: ${JSON.stringify(data)}`);
 }
 
 export async function postData(url, data) {
@@ -29,7 +29,7 @@ export async function postData(url, data) {
     });
 
     if (!response.ok)
-        throw new Error(`Failed to post data do '${url}'. Response status: ${response.status}. Data: ${data}`);
+        throw new Error(`Failed to post data do '${url}'. Response status: ${response.status}. Data: ${JSON.stringify(data)}`);
 }
 
 export async function deleteData(url) {
