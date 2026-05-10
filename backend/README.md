@@ -3,7 +3,7 @@ Run from the 'cmd/' directory to have environment variables setup, allowing the 
 
 Example: `.../cmd go run ./server`
 
-# Environment setup
+# Setup for development
 Place '.env' in the 'cmd/' directory and set the environment variables.
 
 Environment Variables:
