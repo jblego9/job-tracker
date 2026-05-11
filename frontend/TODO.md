@@ -1,6 +1,5 @@
 # TODO
 - Delete application from within edit modal
-- Put add application button into controls bar above scrollable applications list
 
 ## Nice to have improvements
 - Status messages

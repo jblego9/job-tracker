@@ -34,7 +34,6 @@ body,
     padding: 10px;
 
     background-color: var(--primary-color);
-    border-bottom: 2px solid var(--border-color);
 
     font-size: xx-large;
     font-weight: bold;
@@ -57,8 +56,6 @@ body,
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
-
-    border-right: 2px solid var(--border-color);
 }
 
 .sidebar__link {
@@ -83,14 +80,32 @@ body,
 .content {
     flex-grow: 1;
 
-    padding: 10px;
+    margin: 10px;
 
     overflow-y: auto;
 }
 
+.button {
+    padding: 5px;
+
+    cursor: pointer;
+}
+
 .applications-list {
-    margin: 0;
+    margin: 15px;
     padding: 0;
+}
+
+.applications-control-bar {
+    position: sticky;
+    top: 0;
+
+    margin: 0 5px;
+    padding: 10px;
+
+    background-color: white;
+    border: 1px solid var(--bold-border-color);
+    border-radius: var(--border-radius);
 }
 
 .application-card {
@@ -133,12 +148,6 @@ body,
 
 .application-card__row--details {
     color: rgb(60, 60, 60);
-}
-
-.application-card__edit-button {
-    padding: 5px;
-
-    cursor: pointer;
 }
 
 .modal {

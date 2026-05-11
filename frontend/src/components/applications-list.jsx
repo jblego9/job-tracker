@@ -8,13 +8,15 @@ export default function ApplicationsList({ applications }) {
 
     return (
         <>
-            <button onClick={() => setAddingApp(true)}>Add Application</button>
-            { addingApp && (
-                <AddModal onClose={() => {
-                    setAppToEdit(false);
-                    window.location.reload();
-                }}/>
-            )}
+            <div className="applications-control-bar">
+                <button className="button" onClick={() => setAddingApp(true)}>Add Application</button>
+                { addingApp && (
+                    <AddModal onClose={() => {
+                        setAppToEdit(false);
+                        window.location.reload();
+                    }}/>
+                )}
+            </div>
             <ol className="applications-list">
                 {applications.map(app => (
                     <li key={app.Id} className="application-card">
@@ -38,7 +40,7 @@ export default function ApplicationsList({ applications }) {
                             </div>
                         </div>
                         <div>
-                            <button className="application-card__edit-button" onClick={() => setAppToEdit(app)}>Edit</button>
+                            <button className="button" onClick={() => setAppToEdit(app)}>Edit</button>
                         </div>
                     </li>
                 ))}
