@@ -1,11 +1,20 @@
 import { useState } from "react";
 import EditModal from "./edit-modal.jsx";
+import AddModal from "./add-modal.jsx";
 
 export default function ApplicationsList({ applications }) {
     const [appToEdit, setAppToEdit] = useState(null);
+    const [addingApp, setAddingApp] = useState(false);
 
     return (
         <>
+            <button onClick={() => setAddingApp(true)}>Add Application</button>
+            { addingApp && (
+                <AddModal onClose={() => {
+                    setAppToEdit(false);
+                    window.location.reload();
+                }}/>
+            )}
             <ol className="applications-list">
                 {applications.map(app => (
                     <li key={app.Id} className="application-card">
