@@ -11,10 +11,7 @@ export default function ApplicationsList({ applications }) {
             <div className="applications-control-bar">
                 <button className="button" onClick={() => setAddingApp(true)}>Add Application</button>
                 { addingApp && (
-                    <AddModal onClose={() => {
-                        setAppToEdit(false);
-                        window.location.reload();
-                    }}/>
+                    <AddModal onClose={() => setAppToEdit(false)}/>
                 )}
             </div>
             <ol className="applications-list">
@@ -46,10 +43,7 @@ export default function ApplicationsList({ applications }) {
                 ))}
             </ol>
             {appToEdit && (
-                <EditModal app={appToEdit} onClose={() => {
-                    setAppToEdit(null);
-                    window.location.reload();
-                }}/>
+                <EditModal app={appToEdit} onClose={() => setAppToEdit(null)}/>
             )}
         </>
     );

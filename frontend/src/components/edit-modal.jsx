@@ -35,6 +35,18 @@ export default function EditModal({ app, onClose }) {
         }
     };
 
+    const handleDelete = async (e) => {
+        try {
+            e.preventDefault();
+            await Request.deleteData(`${Request.apiUrl}/${app.Id}`);
+            onClose();
+            window.location.reload();
+        } catch (error) {
+            statusRef.current.innerText = "Failed to delete application";
+            console.error(error);
+        }
+    };
+
     return (
         <dialog className="modal" ref={dialogRef} onClose={onClose}>
             <form className="modal-form">
@@ -47,6 +59,7 @@ export default function EditModal({ app, onClose }) {
                     type="text"
                     id="company"
                     name="company"
+                    autoComplete="organization"
                     defaultValue={app.Company}
                     onChange={handleChange}
                     required
@@ -98,27 +111,34 @@ export default function EditModal({ app, onClose }) {
                 </select>
 
                 <div className="modal-form__actions">
-                    <p ref={statusRef} className="modal-form__action-message"></p>
-                    <button 
-                        className="modal-form__button"
-                        type="button"
-                        onClick={() => {
+                    <button className="modal-form__button modal-form__button--delete"
+                        onClick={handleDelete}
+                    >
+                        Delete Application    
+                    </button>
+                    <div>
+                        <button 
+                            className="modal-form__button"
+                            type="button"
+                            onClick={() => {
                                 event.preventDefault();
                                 dialogRef.current.close();
                             }
-                        }
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        className="modal-form__button modal-form__button--primary"
-                        type="submit"
-                        onSubmit={handleConfirm}
-                        onClick={handleConfirm}
-                    >
-                        Edit Application
-                    </button>
+                            }
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            className="modal-form__button modal-form__button--primary"
+                            type="submit"
+                            onSubmit={handleConfirm}
+                            onClick={handleConfirm}
+                        >
+                            Edit Application
+                        </button>
+                    </div>
                 </div>
+                <p ref={statusRef} className="modal-form__action-message"></p>
             </form>
         </dialog>
     );

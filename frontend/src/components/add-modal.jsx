@@ -8,7 +8,7 @@ export default function AddModal({ onClose }) {
         role: "",
         location: "",
         date: "",
-        status: "",
+        status: "AWAITING_RESPONSE",
     });
 
     const handleChange = (e) => {
@@ -30,7 +30,7 @@ export default function AddModal({ onClose }) {
             onClose();
             window.location.reload();
         } catch (error) {
-            statusRef.current.innerText = "Failed to edit application";
+            statusRef.current.innerText = "Failed to add application";
             console.error(error);
         }
     };
@@ -46,6 +46,7 @@ export default function AddModal({ onClose }) {
                     type="text"
                     id="company"
                     name="company"
+                    autoComplete="organization"
                     defaultValue=""
                     onChange={handleChange}
                     required
@@ -97,27 +98,30 @@ export default function AddModal({ onClose }) {
                 </select>
 
                 <div className="modal-form__actions">
-                    <p ref={statusRef} className="modal-form__action-message"></p>
-                    <button 
-                        className="modal-form__button"
-                        type="button"
-                        onClick={() => {
+                    <div></div>
+                    <div>
+                        <button 
+                            className="modal-form__button"
+                            type="button"
+                            onClick={() => {
                                 event.preventDefault();
                                 dialogRef.current.close();
                             }
-                        }
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        className="modal-form__button modal-form__button--primary"
-                        type="submit"
-                        onSubmit={handleConfirm}
-                        onClick={handleConfirm}
-                    >
-                        Add Application
-                    </button>
+                            }
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            className="modal-form__button modal-form__button--primary"
+                            type="submit"
+                            onSubmit={handleConfirm}
+                            onClick={handleConfirm}
+                        >
+                            Add Application
+                        </button>
+                    </div>
                 </div>
+                <p ref={statusRef} className="modal-form__action-message"></p>
             </form>
         </dialog>
     )
