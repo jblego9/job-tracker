@@ -2,7 +2,7 @@ package controller
 
 import (
 	"encoding/json"
-	"errors"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -59,8 +59,8 @@ func AddApplication(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if service.ValidateStatus(app.Status) == "" {
-		writeBadRequestResponse(w, errors.New("Invalid status"))
+	if !internal.ValidateStatus(app.Status) {
+		writeBadRequestResponse(w, fmt.Errorf("Invalid status '%s'", app.Status))
 		return
 	}
 
@@ -79,8 +79,8 @@ func UpdateApplication(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if service.ValidateStatus(updated_app.Status) == "" {
-		writeBadRequestResponse(w, errors.New("Invalid status"))
+	if !internal.ValidateStatus(updated_app.Status) {
+		writeBadRequestResponse(w, fmt.Errorf("Invalid status '%s'", updated_app.Status))
 		return
 	}
 
