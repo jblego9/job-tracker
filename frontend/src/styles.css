@@ -97,6 +97,9 @@ body,
 }
 
 .applications-control-bar {
+    display: flex;
+    justify-content: space-between;
+
     position: sticky;
     top: 0;
 
@@ -106,6 +109,19 @@ body,
     background-color: white;
     border: 1px solid var(--bold-border-color);
     border-radius: var(--border-radius);
+}
+
+.applications-control-bar__page-controls {
+    display: flex;
+    align-items: center;
+
+    & div:not(:last-child) {
+        margin-right: 15px;
+    }
+
+    & label {
+        margin-right: 5px;
+    }
 }
 
 .application-card {

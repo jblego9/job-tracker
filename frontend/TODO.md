@@ -1,11 +1,13 @@
 # TODO
-- Pagination, filtering, sorting
+- Filtering
+- Sorting
 - Export csv
 - Summary
 
 ## Nice to have improvements
+- Deleting an application does not show up without refresh
+- Editing an application does not show up without refresh
 - Status messages
     - Edit modal
     - Add modal
-- Instead of reloading page to fetch changes, update frontend side
 - Failed to connect to backend error

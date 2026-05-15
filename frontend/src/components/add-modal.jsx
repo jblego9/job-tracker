@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import * as Request from "../request.js";
 
-export default function AddModal({ onClose }) {
+export default function AddModal({ applicationsUpdated, onClose }) {
     const [formData, setFormData] = useState({
         id: 0,
         company: "",
@@ -28,7 +28,7 @@ export default function AddModal({ onClose }) {
             e.preventDefault();
             await Request.postData(Request.apiUrl, formData);
             onClose();
-            window.location.reload();
+            applicationsUpdated(true);
         } catch (error) {
             statusRef.current.innerText = "Failed to add application";
             console.error(error);

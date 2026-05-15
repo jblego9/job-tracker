@@ -1,6 +1,10 @@
 const backendUrl = "";
 export const apiUrl = `${backendUrl}/api/v1/applications`;
 
+export function getParamsPrefix(firstParams) {
+    return (firstParams) ? "?" : "&";
+}
+
 export async function getDataJson(url) {
     const response = await fetch(url, { method: "GET" });
 

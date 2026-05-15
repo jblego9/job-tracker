@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import * as Request from "../request.js";
 
-export default function EditModal({ app, onClose }) {
+export default function EditModal({ app, applicationsUpdated, onClose }) {
     const [formData, setFormData] = useState({
         id: app.Id,
         company: app.Company,
@@ -28,7 +28,7 @@ export default function EditModal({ app, onClose }) {
             e.preventDefault();
             await Request.putData(Request.apiUrl, formData);
             onClose();
-            window.location.reload();
+            applicationsUpdated(true);
         } catch (error) {
             statusRef.current.innerText = "Failed to edit application";
             console.error(error);
@@ -40,7 +40,7 @@ export default function EditModal({ app, onClose }) {
             e.preventDefault();
             await Request.deleteData(`${Request.apiUrl}/${app.Id}`);
             onClose();
-            window.location.reload();
+            applicationsUpdated(true);
         } catch (error) {
             statusRef.current.innerText = "Failed to delete application";
             console.error(error);
