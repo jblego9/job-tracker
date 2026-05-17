@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"backend/internal/controller"
+	"backend/internal/middleware"
 )
 
 func Start() {
@@ -26,11 +27,11 @@ func port() string {
 }
 
 func setup() {
-	http.HandleFunc("GET /api/v1/applications", controller.GetApplications)
-	http.HandleFunc("GET /api/v1/applications/{id}", controller.GetApplication)
-	http.HandleFunc("POST /api/v1/applications", controller.AddApplication)
-	http.HandleFunc("PUT /api/v1/applications", controller.UpdateApplication)
-	http.HandleFunc("DELETE /api/v1/applications/{id}", controller.DeleteApplication)
-	http.HandleFunc("GET /api/v1/applications/summary", controller.GetSummary)
-	http.HandleFunc("GET /api/v1/applications/csv-export", controller.GetApplicationsCsvExport)
+	http.HandleFunc("GET /api/v1/applications", middleware.Logging(controller.GetApplications))
+	http.HandleFunc("GET /api/v1/applications/{id}", middleware.Logging(controller.GetApplication))
+	http.HandleFunc("POST /api/v1/applications", middleware.Logging(controller.AddApplication))
+	http.HandleFunc("PUT /api/v1/applications", middleware.Logging(controller.UpdateApplication))
+	http.HandleFunc("DELETE /api/v1/applications/{id}", middleware.Logging(controller.DeleteApplication))
+	http.HandleFunc("GET /api/v1/applications/summary", middleware.Logging(controller.GetSummary))
+	http.HandleFunc("GET /api/v1/applications/csv-export", middleware.Logging(controller.GetApplicationsCsvExport))
 }

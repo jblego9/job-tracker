@@ -1,6 +1,6 @@
 # Todo
+- Add response logging
 
 ## Potential Future Stuff
-- Logging
 - Graceful shutdown
 - Tests
