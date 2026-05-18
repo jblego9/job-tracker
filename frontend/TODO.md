@@ -1,4 +1,5 @@
 # TODO
+- Rewrite existing features
 - Filtering
 - Sorting
 - Export csv
