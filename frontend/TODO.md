@@ -1,13 +1,15 @@
 # TODO
 - Rewrite existing features
+    - Applications control bar
+        - Page controls
+        - Add application
+
 - Filtering
 - Sorting
 - Export csv
 - Summary
 
 ## Nice to have improvements
-- Deleting an application does not show up without refresh
-- Editing an application does not show up without refresh
 - Status messages
     - Edit modal
     - Add modal
