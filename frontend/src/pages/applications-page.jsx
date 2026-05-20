@@ -4,7 +4,7 @@ import ApplicationsList from "../components/applications-list.jsx";
 import EditModal from "../components/edit-modal.jsx";
 
 export default function ApplicationsPage() {
-    const [applications, setApplications] = useState([]);
+    const [apps, setApps] = useState([]);
     const [appToEdit, setAppToEdit] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
     const [pageSize, setPageSize] = useState(25);
@@ -23,15 +23,30 @@ export default function ApplicationsPage() {
             }
         };
 
-        getApplications().then(setApplications);
+        getApplications().then(setApps);
     }, [pageNumber, pageSize]);
+
+    const handleEdit = (updated) => {
+        setApps(prev => prev.map(app => app.Id === updated.Id ? updated : app));
+        setAppToEdit(null);
+    };
+
+    const handleDelete = (deletedId) => {
+        setApps(prev => prev.filter(app => app.Id !== deletedId));
+        setAppToEdit(null);
+    };
 
     return (
         <>
             {appToEdit && (
-                <EditModal />
+                <EditModal
+                    app={appToEdit}
+                    onEdit={handleEdit}
+                    onDelete={handleDelete}
+                    onCancel={() => setAppToEdit(null)}
+                />
             )}
-            <ApplicationsList apps={applications} onEdit={setAppToEdit}/>
+            <ApplicationsList apps={apps} onEdit={setAppToEdit}/>
         </>
     );
 }
