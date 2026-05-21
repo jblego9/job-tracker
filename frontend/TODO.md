@@ -1,7 +1,6 @@
 # TODO
 - Rewrite existing features
     - Applications control bar
-        - Page controls
         - Add application
 
 - Filtering

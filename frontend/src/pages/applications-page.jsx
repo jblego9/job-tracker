@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import * as Request from "../request.js"
 import ApplicationsList from "../components/applications-list.jsx";
 import EditModal from "../components/edit-modal.jsx";
+import ApplicationsControlBar from "../components/applications-control-bar.jsx";
 
 export default function ApplicationsPage() {
     const [apps, setApps] = useState([]);
@@ -36,8 +37,22 @@ export default function ApplicationsPage() {
         setAppToEdit(null);
     };
 
+    const handlePageNumberChange = (value) => {
+        setPageNumber((value >= 1) ? value : 1);
+    };
+
+    const handlePageSizeChange = (value) => {
+        setPageSize((value >= 1) ? value : 1);
+    };
+
     return (
         <>
+            <ApplicationsControlBar
+                pageNumber={pageNumber}
+                onPageNumberChange={handlePageNumberChange}
+                pageSize={pageSize}
+                onPageSizeChange={handlePageSizeChange}
+            />
             {appToEdit && (
                 <EditModal
                     app={appToEdit}
