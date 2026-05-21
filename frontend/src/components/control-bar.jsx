@@ -21,7 +21,7 @@ export default function ControlBar({ pageNumber, onPageNumberChange, pageSize, o
                     onAdd={onAdd}
                     onCancel={() => onAddingApp(false)}
                 />
-            )};
+            )}
         </div>
     );
 }
