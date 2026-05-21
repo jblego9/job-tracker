@@ -99,6 +99,7 @@ body,
 .applications-control-bar {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 
     position: sticky;
     top: 0;
@@ -114,6 +115,7 @@ body,
 .applications-control-bar__page-controls {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 
     & div:not(:last-child) {
         margin-right: 15px;
@@ -127,6 +129,7 @@ body,
 .applications-control-bar__status-filter {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 
     & div:not(:last-child) {
         margin-right: 15px;
