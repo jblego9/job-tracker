@@ -1,5 +1,4 @@
 # TODO
-- Filtering
 - Sorting
 - Export csv
 - Summary

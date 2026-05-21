@@ -32,7 +32,7 @@ export default function PageControls({ pageNumber, onPageNumberChange, pageSize,
                 </button>
             </div>
             <div>
-                <label htmlFor="page-size">Applications per page:</label>
+                <label htmlFor="page-size">Page Size:</label>
                 <select
                     id="page-size"
                     name="page-size"

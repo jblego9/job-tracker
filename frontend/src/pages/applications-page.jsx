@@ -10,15 +10,20 @@ export default function ApplicationsPage() {
     const [addingApp, setAddingApp] = useState(false);
     const [pageNumber, setPageNumber] = useState(1);
     const [pageSize, setPageSize] = useState(25);
+    const [statusFilter, setStatusFilter] = useState("");
 
     useEffect(() => {
         const getPaginationParams = (firstParams) => {
             return `${Request.getParamsPrefix(firstParams)}pageNum=${pageNumber-1}&pageSize=${pageSize}`;
-        }
+        };
+
+        const getStatusFilterParams = (firstParams) => {
+            return `${Request.getParamsPrefix(firstParams)}statusFilter=${statusFilter}`;
+        };
 
         const getApplications = async () => {
             try {
-                const response = await Request.getData(`${Request.apiUrl}${getPaginationParams(true)}`);
+                const response = await Request.getData(`${Request.apiUrl}${getPaginationParams(true)}${getStatusFilterParams(false)}`);
                 return await response.json();
             } catch (error) {
                 console.error(error.message);
@@ -27,7 +32,7 @@ export default function ApplicationsPage() {
         };
 
         getApplications().then(setApps);
-    }, [pageNumber, pageSize]);
+    }, [pageNumber, pageSize, statusFilter]);
 
     const handleAdd = (created) => {
         setApps(prev => [...prev, created]);
@@ -62,6 +67,8 @@ export default function ApplicationsPage() {
                 addingApp={addingApp}
                 onAddingApp={setAddingApp}
                 onAdd={handleAdd}
+                statusFilter={statusFilter}
+                onStatusFilterChange={setStatusFilter}
             />
             <ApplicationsList apps={apps} onEdit={setAppToEdit}/>
             {appToEdit && (

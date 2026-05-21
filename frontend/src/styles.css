@@ -124,6 +124,19 @@ body,
     }
 }
 
+.applications-control-bar__status-filter {
+    display: flex;
+    align-items: center;
+
+    & div:not(:last-child) {
+        margin-right: 15px;
+    }
+
+    & label {
+        margin-right: 5px;
+    }
+}
+
 .application-card {
     display: flex;
     justify-content: space-between;

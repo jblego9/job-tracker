@@ -1,7 +1,8 @@
 import AddModal from "./add-modal";
 import PageControls from "./page-controls";
+import StatusFilter from "./status-filter";
 
-export default function ControlBar({ pageNumber, onPageNumberChange, pageSize, onPageSizeChange, addingApp, onAddingApp, onAdd }) {
+export default function ControlBar({ pageNumber, onPageNumberChange, pageSize, onPageSizeChange, addingApp, onAddingApp, onAdd, statusFilter, onStatusFilterChange }) {
     return (
         <div className="applications-control-bar">
             <PageControls
@@ -10,6 +11,12 @@ export default function ControlBar({ pageNumber, onPageNumberChange, pageSize, o
                 pageSize={pageSize}
                 onPageSizeChange={onPageSizeChange}
             />
+
+            <StatusFilter
+                statusFilter={statusFilter}
+                onStatusFilterChange={onStatusFilterChange}
+            />
+
             <button
                 className="button"
                 onClick={() => onAddingApp(true)}
