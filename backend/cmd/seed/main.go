@@ -18,7 +18,7 @@ func main() {
 
 	apps := GetTestData()
 	for _, app := range apps {
-		if err := repository.InsertApplication(app); err != nil {
+		if _, err := repository.InsertApplication(app); err != nil {
 			log.Fatal(err)
 		}
 	}
