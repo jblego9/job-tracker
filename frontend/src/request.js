@@ -5,13 +5,13 @@ export function getParamsPrefix(firstParams) {
     return (firstParams) ? "?" : "&";
 }
 
-export async function getDataJson(url) {
+export async function getData(url) {
     const response = await fetch(url, { method: "GET" });
 
     if (!response.ok)
         throw new Error(`Failed to get JSON data from '${url}'. Response status: ${response.status}`);
 
-    return await response.json();
+    return response;
 }
 
 export async function putData(url, data) {
@@ -34,6 +34,8 @@ export async function postData(url, data) {
 
     if (!response.ok)
         throw new Error(`Failed to post data do '${url}'. Response status: ${response.status}. Data: ${JSON.stringify(data)}`);
+
+    return response;
 }
 
 export async function deleteData(url) {

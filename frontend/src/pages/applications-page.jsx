@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import * as Request from "../request.js"
 import ApplicationsList from "../components/applications-list.jsx";
 import EditModal from "../components/edit-modal.jsx";
-import ApplicationsControlBar from "../components/applications-control-bar.jsx";
+import ControlBar from "../components/control-bar.jsx";
 
 export default function ApplicationsPage() {
     const [apps, setApps] = useState([]);
     const [appToEdit, setAppToEdit] = useState(null);
+    const [addingApp, setAddingApp] = useState(false);
     const [pageNumber, setPageNumber] = useState(1);
     const [pageSize, setPageSize] = useState(25);
 
@@ -17,7 +18,8 @@ export default function ApplicationsPage() {
 
         const getApplications = async () => {
             try {
-                return await Request.getDataJson(`${Request.apiUrl}${getPaginationParams(true)}`);
+                const response = await Request.getData(`${Request.apiUrl}${getPaginationParams(true)}`);
+                return await response.json();
             } catch (error) {
                 console.error(error.message);
                 return [];
@@ -26,6 +28,11 @@ export default function ApplicationsPage() {
 
         getApplications().then(setApps);
     }, [pageNumber, pageSize]);
+
+    const handleAdd = (created) => {
+        setApps(prev => [...prev, created]);
+        setAddingApp(false);
+    };
 
     const handleEdit = (updated) => {
         setApps(prev => prev.map(app => app.Id === updated.Id ? updated : app));
@@ -47,12 +54,16 @@ export default function ApplicationsPage() {
 
     return (
         <>
-            <ApplicationsControlBar
+            <ControlBar
                 pageNumber={pageNumber}
                 onPageNumberChange={handlePageNumberChange}
                 pageSize={pageSize}
                 onPageSizeChange={handlePageSizeChange}
+                addingApp={addingApp}
+                onAddingApp={setAddingApp}
+                onAdd={handleAdd}
             />
+            <ApplicationsList apps={apps} onEdit={setAppToEdit}/>
             {appToEdit && (
                 <EditModal
                     app={appToEdit}
@@ -61,7 +72,6 @@ export default function ApplicationsPage() {
                     onCancel={() => setAppToEdit(null)}
                 />
             )}
-            <ApplicationsList apps={apps} onEdit={setAppToEdit}/>
         </>
     );
 }

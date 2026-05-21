@@ -80,14 +80,23 @@ func GetApplication(id int) (*internal.Application, error) {
 	return &app, nil
 }
 
-func InsertApplication(app internal.Application) error {
+func InsertApplication(app internal.Application) (int, error) {
 	query := `
 		INSERT INTO applications (company, role, location, date, status)
 		VALUES (?, ?, ?, ?, ?);
 	`
 
-	_, err := db.Exec(query, app.Company, app.Role, app.Location, app.Date, app.Status)
-	return err
+	result, err := db.Exec(query, app.Company, app.Role, app.Location, app.Date, app.Status)
+	if err != nil {
+		return -1, err
+	}
+
+	id, err := result.LastInsertId()
+	if err != nil {
+		return -1, err
+	}
+
+	return int(id), nil 
 }
 
 func UpdateApplication(app internal.Application) error {

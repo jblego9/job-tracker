@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export default function ApplicationsPageControls({ pageNumber, onPageNumberChange, pageSize, onPageSizeChange }) {
+export default function PageControls({ pageNumber, onPageNumberChange, pageSize, onPageSizeChange }) {
     const pageNumberRef = useRef(null);
 
     useEffect(() => {

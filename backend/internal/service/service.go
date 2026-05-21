@@ -84,7 +84,7 @@ func GetApplication(id int) (*internal.Application, error) {
 	return repository.GetApplication(id)
 }
 
-func AddApplication(app internal.Application) error {
+func AddApplication(app internal.Application) (int, error) {
 	return repository.InsertApplication(app)
 }
 

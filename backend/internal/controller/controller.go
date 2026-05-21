@@ -64,12 +64,15 @@ func AddApplication(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := service.AddApplication(app); err != nil {
+	id, err := service.AddApplication(app);
+	if err != nil {
 		writeInternalServerErrorResponse(w, err)
 		return
 	}
 
-	w.WriteHeader(http.StatusCreated)
+	writeJsonResponse(w, struct{
+		Id int
+	}{Id: id});
 }
 
 func UpdateApplication(w http.ResponseWriter, r *http.Request) {
