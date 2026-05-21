@@ -2,9 +2,7 @@
 - Sorting
 - Export csv
 - Summary
-
-## Nice to have improvements
+- Failed to connect to backend error
 - Status message improvements
     - Edit modal
     - Add modal
-- Failed to connect to backend error
