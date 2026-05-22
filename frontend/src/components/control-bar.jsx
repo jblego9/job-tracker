@@ -1,8 +1,9 @@
 import AddModal from "./add-modal";
 import PageControls from "./page-controls";
+import SortControls from "./sort-controls";
 import StatusFilter from "./status-filter";
 
-export default function ControlBar({ pageNumber, onPageNumberChange, pageSize, onPageSizeChange, addingApp, onAddingApp, onAdd, statusFilter, onStatusFilterChange }) {
+export default function ControlBar({ pageNumber, onPageNumberChange, pageSize, onPageSizeChange, addingApp, onAddingApp, onAdd, statusFilter, onStatusFilterChange, sortBy, onSortByChange, sortDir, onSortDirChange }) {
     return (
         <div className="applications-control-bar">
             <PageControls
@@ -15,6 +16,13 @@ export default function ControlBar({ pageNumber, onPageNumberChange, pageSize, o
             <StatusFilter
                 statusFilter={statusFilter}
                 onStatusFilterChange={onStatusFilterChange}
+            />
+
+            <SortControls
+                sortBy={sortBy}
+                onSortByChange={onSortByChange}
+                sortDir={sortDir}
+                onSortDirChange={onSortDirChange}
             />
 
             <button

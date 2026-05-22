@@ -11,6 +11,8 @@ export default function ApplicationsPage() {
     const [pageNumber, setPageNumber] = useState(1);
     const [pageSize, setPageSize] = useState(25);
     const [statusFilter, setStatusFilter] = useState("");
+    const [sortBy, setSortBy] = useState("");
+    const [sortDir, setSortDir] = useState("asc");
 
     useEffect(() => {
         const getPaginationParams = (firstParams) => {
@@ -18,12 +20,16 @@ export default function ApplicationsPage() {
         };
 
         const getStatusFilterParams = (firstParams) => {
-            return `${Request.getParamsPrefix(firstParams)}statusFilter=${statusFilter}`;
+            return (statusFilter == "") ? "" : `${Request.getParamsPrefix(firstParams)}statusFilter=${statusFilter}`;
+        };
+
+        const getSortParams = (firstParams) => {
+            return (sortBy == "") ? "" : `${Request.getParamsPrefix(firstParams)}sortBy=${sortBy}&sortDir=${sortDir}`;
         };
 
         const getApplications = async () => {
             try {
-                const response = await Request.getData(`${Request.apiUrl}${getPaginationParams(true)}${getStatusFilterParams(false)}`);
+                const response = await Request.getData(`${Request.apiUrl}${getPaginationParams(true)}${getStatusFilterParams(false)}${getSortParams(false)}`);
                 return await response.json();
             } catch (error) {
                 console.error(error.message);
@@ -32,7 +38,7 @@ export default function ApplicationsPage() {
         };
 
         getApplications().then(setApps);
-    }, [pageNumber, pageSize, statusFilter]);
+    }, [pageNumber, pageSize, statusFilter, sortBy, sortDir]);
 
     const handleAdd = (created) => {
         setApps(prev => [...prev, created]);
@@ -69,6 +75,10 @@ export default function ApplicationsPage() {
                 onAdd={handleAdd}
                 statusFilter={statusFilter}
                 onStatusFilterChange={setStatusFilter}
+                sortBy={sortBy}
+                onSortByChange={setSortBy}
+                sortDir={sortDir}
+                onSortDirChange={setSortDir}
             />
             <ApplicationsList apps={apps} onEdit={setAppToEdit}/>
             {appToEdit && (

@@ -1,5 +1,4 @@
 # TODO
-- Sorting
 - Export csv
 - Summary
 - Failed to connect to backend error

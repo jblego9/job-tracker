@@ -1,7 +1,7 @@
 export default function StatusFilter({ statusFilter, onStatusFilterChange }) {
     return (
         <div className="applications-control-bar__status-filter">
-            <label for="status-filter">Filter:</label>
+            <label htmlFor="status-filter">Filter:</label>
             <select
                 id="status-filter"
                 name="status-filter"

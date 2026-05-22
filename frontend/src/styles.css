@@ -140,6 +140,20 @@ body,
     }
 }
 
+.applications-control-bar__sort-controls {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    & div:not(:last-child) {
+        margin-right: 15px;
+    }
+
+    & label {
+        margin-right: 5px;
+    }
+}
+
 .application-card {
     display: flex;
     justify-content: space-between;
