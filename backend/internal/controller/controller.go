@@ -149,7 +149,7 @@ func GetApplicationsCsvExport(w http.ResponseWriter, _ *http.Request) {
 		return
 	}
 
-	records := make([][]string, len(apps)+1)
+	records := make([][]string, 0, len(apps)+1)
 
 	records = append(records, []string{"Id", "Company", "Role", "Location", "Date", "Status"})
 	for _, app := range apps {
