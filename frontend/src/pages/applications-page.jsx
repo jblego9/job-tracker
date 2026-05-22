@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import * as Request from "../request.js"
+import * as File from "../file.js";
 import ApplicationsList from "../components/applications-list.jsx";
 import EditModal from "../components/edit-modal.jsx";
 import ControlBar from "../components/control-bar.jsx";
@@ -63,6 +64,13 @@ export default function ApplicationsPage() {
         setPageSize((value >= 1) ? value : 1);
     };
 
+    const handleExportCSV = async () => {
+        const response = await Request.getData(`${Request.apiUrl}/csv-export`);
+        const data = await response.text();
+        const fileHandle = await File.createFileHandleCSV();
+        await File.writeToFile(fileHandle, data);
+    };
+
     return (
         <>
             <ControlBar
@@ -79,6 +87,7 @@ export default function ApplicationsPage() {
                 onSortByChange={setSortBy}
                 sortDir={sortDir}
                 onSortDirChange={setSortDir}
+                onExportCSV={handleExportCSV}
             />
             <ApplicationsList apps={apps} onEdit={setAppToEdit}/>
             {appToEdit && (

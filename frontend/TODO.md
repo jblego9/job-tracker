@@ -1,5 +1,4 @@
 # TODO
-- Export csv
 - Summary
 - Failed to connect to backend error
 - Status message improvements
