@@ -1,6 +1,6 @@
 # TODO
-- Summary
-- Failed to connect to backend error
+- Improve summary page styling
+- Add failed to connect to backend error message
 - Status message improvements
     - Edit modal
     - Add modal

@@ -9,7 +9,7 @@ export async function getData(url) {
     const response = await fetch(url, { method: "GET" });
 
     if (!response.ok)
-        throw new Error(`Failed to get JSON data from '${url}'. Response status: ${response.status}`);
+        throw new Error(`Failed to get data from '${url}'. Response status: ${response.status}`);
 
     return response;
 }

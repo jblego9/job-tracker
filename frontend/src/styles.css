@@ -188,13 +188,14 @@ body,
 
 .application-card__row {
     display: flex;
+    align-items: center;
 
     &:not(:last-child) {
         margin-bottom: 10px;
     }
 
     & p {
-        margin-top: 0px;
+        margin-top: 2px;
         margin-bottom: 0px;
 
         &:not(:last-child) {
@@ -324,4 +325,58 @@ body,
 
 .edit-modal-application-id {
     color: rgb(60, 60, 60);
+}
+
+.summary-list {
+    display: grid;
+    grid-template-columns: auto 15px auto;
+    gap: 4px 12px;
+    justify-content: center;
+}
+
+.summary-list__status {
+    text-align: right;
+}
+
+.summary-list__status--total {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.summary-list__count {
+    text-align: left;
+}
+
+.summary-list__count--total {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.status-badge {
+    display: inline-block;
+    align-self: center;
+
+    width: 15px;
+    height: 15px;
+
+    margin: 0 2px;
+
+    border-radius: 3px;
+}
+
+.status-badge--awaiting-response {
+    background-color: darkgrey;
+}
+
+.status-badge--no-response {
+    background-color: darkorange;
+}
+.status-badge--awaiting-interview {
+    background-color: yellow;
+}
+.status-badge--rejected {
+    background-color: red;
+}
+.status-badge--accepted {
+    background-color: lime;
 }
