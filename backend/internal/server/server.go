@@ -2,12 +2,15 @@ package server
 
 import (
 	"fmt"
+	"io/fs"
 	"net/http"
 	"os"
 
+	"backend/internal"
 	"backend/internal/controller"
 	"backend/internal/middleware"
 )
+
 
 func Start() {
 	setup()
@@ -27,6 +30,11 @@ func port() string {
 }
 
 func setup() {
+	subFS, err := fs.Sub(internal.EmbeddedFiles, "frontend-build")
+	if err != nil {
+		panic(err)
+	}
+
 	http.HandleFunc("GET /api/v1/applications", middleware.Logging(controller.GetApplications))
 	http.HandleFunc("GET /api/v1/applications/{id}", middleware.Logging(controller.GetApplication))
 	http.HandleFunc("POST /api/v1/applications", middleware.Logging(controller.AddApplication))
@@ -34,4 +42,6 @@ func setup() {
 	http.HandleFunc("DELETE /api/v1/applications/{id}", middleware.Logging(controller.DeleteApplication))
 	http.HandleFunc("GET /api/v1/applications/summary", middleware.Logging(controller.GetSummary))
 	http.HandleFunc("GET /api/v1/applications/csv-export", middleware.Logging(controller.GetApplicationsCsvExport))
+
+	http.Handle("/", http.FileServer(http.FS(subFS)))
 }
