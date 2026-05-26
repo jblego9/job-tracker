@@ -1,5 +1,7 @@
 @echo off
 
+set "EXECUTABLE_NAME=JobTracker"
+
 set "BUILD_DIR=%~dp0..\build"
 set "DIST_DIR=%~dp0..\dist"
 
@@ -21,7 +23,7 @@ mkdir "%DIST_DIR%"
 
 echo Building backend...
 cd "%BUILD_DIR%"
-go build -o "%DIST_DIR%\server.exe" .\cmd\server\
+go build -o "%DIST_DIR%\%EXECUTABLE_NAME%.exe" .\cmd\server\
 
 echo Creating default config files
 copy NUL "%DIST_DIR%\data.db"

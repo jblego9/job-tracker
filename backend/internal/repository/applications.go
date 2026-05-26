@@ -180,7 +180,8 @@ func GetSummary() (*internal.Summary, error) {
 		TotalAwaitingInterview: statusMap["AWAITING_INTERVIEW"],
 		TotalAccepted:          statusMap["ACCEPTED"],
 	}
-	summary.Total = summary.TotalNoResponse + summary.TotalRejected + summary.TotalAwaitingInterview + summary.TotalAccepted
+	summary.Total = summary.TotalAwaitingResponse + summary.TotalNoResponse + 
+		summary.TotalRejected + summary.TotalAwaitingInterview + summary.TotalAccepted
 
 	return &summary, nil
 }
