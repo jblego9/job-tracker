@@ -326,15 +326,21 @@ body,
 .edit-modal-application-id {
     color: rgb(60, 60, 60);
 }
+.summary-heading {
+    margin-bottom: 50px;
+
+    text-align: center;
+}
 
 .summary-list {
     display: grid;
-    grid-template-columns: auto 15px auto;
+    grid-template-columns: 1fr 15px 1fr;
     gap: 4px 12px;
     justify-content: center;
 }
 
 .summary-list__status {
+    font-size: large;
     text-align: right;
 }
 
@@ -344,6 +350,9 @@ body,
 }
 
 .summary-list__count {
+    padding-left: 6px;
+
+    font-size: large;
     text-align: left;
 }
 

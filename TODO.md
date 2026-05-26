@@ -1,4 +1,2 @@
 # TODO
-- Finish frontend
-- Serve frontend from backend
-- Production and development database environments
+- Building a distributable server that serves the built frontend

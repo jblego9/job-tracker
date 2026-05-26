@@ -28,7 +28,7 @@ export default function SummaryPage() {
 
     return (
         <div>
-            <h1>Summary</h1>
+            <h1 className="summary-heading">Summary</h1>
             <div className="summary-list">
                 <span className="summary-list__status summary-list__status--total">Total</span>
                 <span></span>
