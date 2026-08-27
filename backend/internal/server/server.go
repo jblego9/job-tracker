@@ -18,6 +18,12 @@ func Start() {
 
 	port := port()
 	fmt.Printf("Server listening on \"localhost:%s\"...\n", port)
+
+	err := noResponseCheckAfterMonths()
+	if err != nil {
+		panic(err)
+	}
+
 	http.ListenAndServe(fmt.Sprintf(":%s", port), nil)
 }
 
@@ -41,16 +47,12 @@ func noResponseCheckAfterMonths() error {
 		return err
 	}
 
+	fmt.Printf("Performing no response after '%d' months check...\n", months)
 	return service.NoResponseCheck(months)
 }
 
 func setup() {
 	subFS, err := fs.Sub(internal.EmbeddedFiles, "frontend-build")
-	if err != nil {
-		panic(err)
-	}
-
-	err = noResponseCheckAfterMonths()
 	if err != nil {
 		panic(err)
 	}
