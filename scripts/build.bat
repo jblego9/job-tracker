@@ -23,13 +23,14 @@ mkdir "%DIST_DIR%"
 
 echo Building backend...
 cd "%BUILD_DIR%"
-go build -o "%DIST_DIR%\%EXECUTABLE_NAME%.exe" .\cmd\server\
+go build -tags prod -o "%DIST_DIR%\%EXECUTABLE_NAME%.exe" .\cmd\server\
 
 echo Creating default config files
 copy NUL "%DIST_DIR%\data.db"
 (
     echo PORT=8080
     echo DB_PATH=./data.db
+    echo NO_RESPONSE_CHECK_AFTER_N_MONTHS=2
 ) > "%DIST_DIR%\.env"
 
 echo Build finished

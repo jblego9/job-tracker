@@ -13,7 +13,8 @@ func getApplications(queryAdditions []string, args ...any) ([]internal.Applicati
 	var query strings.Builder
 	query.WriteString(`SELECT id, company, role, location, date, status FROM applications`)
 	for _, addition := range queryAdditions {
-		query.WriteString(" " + addition)
+		query.WriteString(" ")
+		query.WriteString(addition)
 	}
 	query.WriteString(";")
 
@@ -96,7 +97,7 @@ func InsertApplication(app internal.Application) (int, error) {
 		return -1, err
 	}
 
-	return int(id), nil 
+	return int(id), nil
 }
 
 func UpdateApplication(app internal.Application) error {
@@ -180,8 +181,23 @@ func GetSummary() (*internal.Summary, error) {
 		TotalAwaitingInterview: statusMap["AWAITING_INTERVIEW"],
 		TotalAccepted:          statusMap["ACCEPTED"],
 	}
-	summary.Total = summary.TotalAwaitingResponse + summary.TotalNoResponse + 
+	summary.Total = summary.TotalAwaitingResponse + summary.TotalNoResponse +
 		summary.TotalRejected + summary.TotalAwaitingInterview + summary.TotalAccepted
 
 	return &summary, nil
+}
+
+func NoResponseCheck(months int) error {
+	query := `
+		UPDATE applications
+		SET status = 'NO_RESPONSE'
+		WHERE date < date('now', '-' || ? || ' months') AND status = 'AWAITING_RESPONSE'
+	`
+
+	_, err := db.Exec(query, months)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

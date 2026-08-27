@@ -5,12 +5,13 @@ import (
 	"io/fs"
 	"net/http"
 	"os"
+	"strconv"
 
 	"backend/internal"
 	"backend/internal/controller"
 	"backend/internal/middleware"
+	"backend/internal/service"
 )
-
 
 func Start() {
 	setup()
@@ -29,8 +30,27 @@ func port() string {
 	return port
 }
 
+func noResponseCheckAfterMonths() error {
+	envValue := os.Getenv("NO_RESPONSE_CHECK_AFTER_N_MONTHS")
+	if envValue == "" {
+		return nil
+	}
+
+	months, err := strconv.Atoi(envValue)
+	if err != nil {
+		return err
+	}
+
+	return service.NoResponseCheck(months)
+}
+
 func setup() {
 	subFS, err := fs.Sub(internal.EmbeddedFiles, "frontend-build")
+	if err != nil {
+		panic(err)
+	}
+
+	err = noResponseCheckAfterMonths()
 	if err != nil {
 		panic(err)
 	}

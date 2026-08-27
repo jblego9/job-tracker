@@ -3,8 +3,8 @@ package service
 import (
 	"backend/internal"
 	"backend/internal/repository"
-	"strconv"
 	"fmt"
+	"strconv"
 )
 
 func GetApplications(statusFilter string, sortBy string, sortDir string, pageNum string, pageSize string) ([]internal.Application, error) {
@@ -13,13 +13,12 @@ func GetApplications(statusFilter string, sortBy string, sortDir string, pageNum
 	}
 
 	if !validateSortBy(sortBy) && sortBy != "" {
-		return nil, fmt.Errorf("Invalid sort by '%s'", sortBy) 
+		return nil, fmt.Errorf("Invalid sort by '%s'", sortBy)
 	}
 
 	if !validateSortDir(sortDir) && sortDir != "" {
 		return nil, fmt.Errorf("Invalid sort dir '%s'", sortDir)
 	}
-
 
 	parsedPageNum, err := parsePageParam(pageNum)
 	if err != nil && pageNum != "" {
@@ -102,4 +101,8 @@ func DoesApplicationExist(id int) (bool, error) {
 
 func GetSummary() (*internal.Summary, error) {
 	return repository.GetSummary()
+}
+
+func NoResponseCheck(months int) error {
+	return repository.NoResponseCheck(months)
 }
