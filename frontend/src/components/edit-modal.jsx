@@ -103,6 +103,7 @@ export default function EditModal({ app, onEdit, onDelete, onCancel }) {
                     <option value="AWAITING_RESPONSE">Awaiting Response</option>
                     <option value="NO_RESPONSE">No Response</option>
                     <option value="AWAITING_INTERVIEW">Awaiting Interview</option>
+                    <option value="INTERVIEW_DONE">Interview Done</option>
                     <option value="REJECTED">Rejected</option>
                     <option value="ACCEPTED">Accepted</option>
                 </select>

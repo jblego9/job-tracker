@@ -21,10 +21,12 @@ func ValidateStatus(status string) bool {
 		fallthrough
 	case "AWAITING_INTERVIEW":
 		fallthrough
+	case "INTERVIEW_DONE":
+		fallthrough
 	case "ACCEPTED":
-		return true	
+		return true
 	default:
-		return false	
+		return false
 	}
 }
 

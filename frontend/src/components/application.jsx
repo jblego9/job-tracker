@@ -38,6 +38,7 @@ function statusBadgeFromStatus(status) {
     if (status == "AWAITING_RESPONSE") return "status-badge--awaiting-response";
     if (status == "NO_RESPONSE") return "status-badge--no-response";
     if (status == "AWAITING_INTERVIEW") return "status-badge--awaiting-interview";
+    if (status == "INTERVIEW_DONE") return "status-badge--interview-done";
     if (status == "REJECTED") return "status-badge--rejected";
     if (status == "ACCEPTED") return "status-badge--accepted";
 }

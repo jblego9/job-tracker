@@ -6,5 +6,6 @@ type Summary struct {
 	TotalNoResponse        int
 	TotalRejected          int
 	TotalAwaitingInterview int
+	TotalInterviewDone     int
 	TotalAccepted          int
 }

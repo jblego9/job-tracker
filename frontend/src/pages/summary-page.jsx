@@ -6,6 +6,7 @@ export default function SummaryPage() {
     const [awaitingResponse, setAwaitingResponse] = useState(null);
     const [noResponse, setNoResponse] = useState(null);
     const [awaitingInterview, setAwaitingInterview] = useState(null);
+    const [interviewDone, setInterviewDone] = useState(null);
     const [rejected, setRejected] = useState(null);
     const [accepted, setAccepted] = useState(null);
 
@@ -21,6 +22,7 @@ export default function SummaryPage() {
             setAwaitingResponse(summary.TotalAwaitingResponse);
             setNoResponse(summary.TotalNoResponse);
             setAwaitingInterview(summary.TotalAwaitingInterview);
+            setInterviewDone(summary.TotalInterviewDone);
             setRejected(summary.TotalRejected);
             setAccepted(summary.TotalAccepted);
         });
@@ -45,6 +47,10 @@ export default function SummaryPage() {
                 <span className="summary-list__status">Awaiting Interview</span>
                 <span className="status-badge status-badge--awaiting-interview"></span>
                 <span className="summary-list__count">{awaitingInterview}</span>
+
+                <span className="summary-list__status">Interview Done</span>
+                <span className="status-badge status-badge--interview-done"></span>
+                <span className="summary-list__count">{interviewDone}</span>
 
                 <span className="summary-list__status">Rejected</span>
                 <span className="status-badge status-badge--rejected"></span>

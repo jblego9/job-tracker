@@ -58,7 +58,7 @@ func GetTestData() []internal.Application {
 			Role:     "Role8",
 			Location: "Location8",
 			Date:     "2026-05-02",
-			Status:   "NO_RESPONSE",
+			Status:   "INTERVIEW_DONE",
 		},
 		{
 			Company:  "Company9",

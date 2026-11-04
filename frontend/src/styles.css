@@ -380,12 +380,19 @@ body,
 .status-badge--no-response {
     background-color: darkorange;
 }
+
 .status-badge--awaiting-interview {
     background-color: yellow;
 }
+
+.status-badge--interview-done {
+    background-color: orchid;
+}
+
 .status-badge--rejected {
     background-color: red;
 }
+
 .status-badge--accepted {
     background-color: lime;
 }
