@@ -25,8 +25,11 @@ export default function HistoryPage() {
     }, [year]);
 
     const handleYearChange = (event) => {
-        const value = parseInt(event.target.value, 10);
+        let value = parseInt(event.target.value, 10);
         if (!Number.isNaN(value)) {
+            if (value < 0) value = 0;
+            else if (value > 9999) value = 9999;
+
             setYear(value);
         }
     }
@@ -57,6 +60,8 @@ export default function HistoryPage() {
                     name="year"
                     type="number"
                     value={year}
+                    min="0"
+                    max="9999"
                     onChange={handleYearChange}
                 />
             </div>
