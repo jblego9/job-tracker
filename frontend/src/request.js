@@ -8,8 +8,10 @@ export function getParamsPrefix(firstParams) {
 export async function getData(url) {
     const response = await fetch(url, { method: "GET" });
 
-    if (!response.ok)
-        throw new Error(`Failed to get data from '${url}'. Response status: ${response.status}`);
+    if (!response.ok) {
+        const body = await response.text();
+        throw new Error(`Failed to get data from '${url}'. Response status: ${response.status}. Response: ${body}`);
+    }
 
     return response;
 }
@@ -21,8 +23,10 @@ export async function putData(url, data) {
         body: JSON.stringify(data)
     });
 
-    if (!response.ok)
-        throw new Error(`Failed to put data to '${url}'. Response status: ${response.status}. Data: ${JSON.stringify(data)}`);
+    if (!response.ok) {
+        const body = await response.text();
+        throw new Error(`Failed to put data to '${url}'. Response status: ${response.status}. Response: ${body}. Data: ${JSON.stringify(data)}`);
+    }
 }
 
 export async function postData(url, data) {
@@ -32,8 +36,10 @@ export async function postData(url, data) {
         body: JSON.stringify(data)
     });
 
-    if (!response.ok)
-        throw new Error(`Failed to post data do '${url}'. Response status: ${response.status}. Data: ${JSON.stringify(data)}`);
+    if (!response.ok) {
+        const body = await response.text();
+        throw new Error(`Failed to post data do '${url}'. Response status: ${response.status}. Response: ${body}. Data: ${JSON.stringify(data)}`);
+    }
 
     return response;
 }
@@ -41,6 +47,8 @@ export async function postData(url, data) {
 export async function deleteData(url) {
     const response = await fetch(url, { method: "DELETE" });
 
-    if (!response.ok)
-        throw new Error(`Failed to delete data at '${url}'. Response status: ${response.status}`);
+    if (!response.ok) {
+        const body = await response.text();
+        throw new Error(`Failed to delete data at '${url}'. Response status: ${response.status}. Response: ${body}`);
+    }
 }

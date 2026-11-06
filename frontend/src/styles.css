@@ -326,6 +326,7 @@ body,
 .edit-modal-application-id {
     color: rgb(60, 60, 60);
 }
+
 .summary-heading {
     margin-bottom: 50px;
 
@@ -395,4 +396,21 @@ body,
 
 .status-badge--accepted {
     background-color: lime;
+}
+
+.history-heading {
+    text-align: center;
+}
+
+.history-chart {
+    justify-self: center;
+}
+
+.history-year-input {
+    display: flex;
+    justify-content: center;
+
+    input {
+        margin-left: 5px;
+    }
 }

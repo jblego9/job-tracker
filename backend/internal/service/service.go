@@ -5,6 +5,7 @@ import (
 	"backend/internal/repository"
 	"fmt"
 	"strconv"
+	"time"
 )
 
 func GetApplications(statusFilter string, sortBy string, sortDir string, pageNum string, pageSize string) ([]internal.Application, error) {
@@ -105,4 +106,13 @@ func GetSummary() (*internal.Summary, error) {
 
 func NoResponseCheck(months int) error {
 	return repository.NoResponseCheck(months)
+}
+
+func GetHistory(year string) (*internal.History, error) {
+	return repository.GetHistory(year)
+}
+
+func ValidateYear(year string) bool {
+	_, err := time.Parse("01/01/2026", "01/01/"+year)
+	return err != nil
 }

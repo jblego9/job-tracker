@@ -6,6 +6,7 @@ import Header from "./components/header.jsx"
 import Sidebar from "./components/sidebar.jsx"
 import ApplicationsPage from "./pages/applications-page.jsx"
 import SummaryPage from "./pages/summary-page.jsx"
+import HistoryPage from "./pages/history-page.jsx"
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
@@ -17,6 +18,7 @@ createRoot(document.getElementById("root")).render(
                     <Routes>
                         <Route path="/" element={<ApplicationsPage />} />
                         <Route path="/summary" element={<SummaryPage />} />
+                        <Route path="/history" element={<HistoryPage />} />
                     </Routes>
                 </main>
             </div>

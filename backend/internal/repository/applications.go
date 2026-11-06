@@ -202,3 +202,40 @@ func NoResponseCheck(months int) error {
 
 	return nil
 }
+
+func GetHistory(year string) (*internal.History, error) {
+	query := `
+		SELECT CAST(strftime('%m', date) AS INTEGER) AS month, COUNT(*) AS count
+		FROM applications
+		WHERE strftime('%Y', date) = ?
+		GROUP BY month
+		ORDER BY month
+	`
+
+	rows, err := db.Query(query, year)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	history := internal.CreateEmptyHistory()
+
+	for rows.Next() {
+		var month int
+		var count int
+		if err := rows.Scan(&month, &count); err != nil {
+			return nil, err
+		}
+
+		if month >= 1 && month <= 12 {
+			history[month-1].Count = count
+		}
+
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return &history, nil
+}

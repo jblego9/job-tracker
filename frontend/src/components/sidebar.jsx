@@ -15,6 +15,12 @@ export default function Sidebar() {
             >
                 Summary
             </NavLink>
+            <NavLink 
+                to="/history"
+                className={({ isActive }) => isActiveClass(isActive)}
+            >
+                History
+            </NavLink>
         </nav>
     );
 }

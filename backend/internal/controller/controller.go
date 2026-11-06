@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"time"
 
 	"backend/internal"
 	"backend/internal/service"
@@ -157,4 +158,24 @@ func GetApplicationsCsvExport(w http.ResponseWriter, _ *http.Request) {
 	}
 
 	writeCsvResponse(w, records)
+}
+
+func GetHistory(w http.ResponseWriter, r *http.Request) {
+	var year string = r.PathValue("year")
+	if year == "" {
+		year = strconv.Itoa(time.Now().UTC().Year())
+	}
+
+	if !service.ValidateYear(year) {
+		writeBadRequestResponse(w, fmt.Errorf("Invalid year: '%s'", year))
+		return
+	}
+
+	history, err := service.GetHistory(year)
+	if err != nil {
+		writeInternalServerErrorResponse(w, err)
+		return
+	}
+
+	writeJsonResponse(w, history)
 }
